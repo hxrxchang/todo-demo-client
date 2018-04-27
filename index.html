@@ -10,13 +10,31 @@
   <title>Todo()</title>
 </head>
 <body>
-  <button id="open-add-memo-modal-btn">+</button>
-  <div id="modalwin" class="modalwin hide">
-    <a href="#" class="modal-close"></a>
-    <h1>タイトル</h1>
-    <div class="modalwin-contents">
-      <p>テキスト</p>
-      <button>閉じる</button>
+  <div class="container">
+    <header>
+
+    </header>
+    <button id="open-add-memo-modal-btn">+</button>
+
+    <!-- todo作成用のモーダル -->
+    <div id="modalwin" class="modalwin hide">
+      <a href="#" class="modal-close"></a>
+      <h1>ToDo
+        <span>
+          <button>×</button>
+        </span>
+      </h1>
+      <div class="modalwin-contents">
+        <div>
+          <input id="todo-title" type="text" placeholder="title">
+        </div>
+        <div>
+          <input id="todo-detail" type="todo-detail" placeholder="detail">
+        </div>
+        <div>
+          <button id="create-memo-btn">作成</button>
+        </div>
+      </div>
     </div>
   </div>
   <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>

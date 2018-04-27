@@ -1,4 +1,6 @@
 $(() => {
+  // ページロードじにストレージからデータを持ってくる
+
   // モーダル表示
   $('#open-add-memo-modal-btn').on('click', showModal);
 
@@ -8,7 +10,6 @@ $(() => {
     let $shade = $('<div></div>');
     $shade
       .attr('id', 'shade')
-      .on('click', hideModal);
 
     let $modalWin = $('#modalwin');
     // windowはwindowオブジェクトのこと
@@ -32,4 +33,9 @@ $(() => {
       .removeClass('show')
       .addClass('hide');
   }
+
+  $('#create-memo-btn').on('click', () => {
+    const todoTitle = $('#todo-title').val();
+    const todoDetail = $('#todo-detail').val();
+  });
 });
