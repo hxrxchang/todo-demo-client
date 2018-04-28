@@ -16,8 +16,30 @@
     </header>
     <button id="open-add-memo-modal-btn">+</button>
 
+    <!-- ログイン時のモーダル -->
+    <div id="login-modal" class="modalwin hide">
+      <a href="#" class="modal-close"></a>
+      <h1>ToDo
+        <span>
+          <button>×</button>
+        </span>
+      </h1>
+      <div class="modalwin-contents">
+        <div>
+          <input id="user-name" type="text" placeholder="user name">
+        </div>
+        <div>
+          <input id="user-password" type="text" placeholder="password">
+        </div>
+        <div>
+          <button id="login">login</button>
+          <button id="sign-up">sign up</button>
+        </div>
+      </div>
+    </div>
+
     <!-- todo作成用のモーダル -->
-    <div id="modalwin" class="modalwin hide">
+    <div id="create-task-modal" class="modalwin hide">
       <a href="#" class="modal-close"></a>
       <h1>ToDo
         <span>
@@ -29,10 +51,10 @@
           <input id="todo-title" type="text" placeholder="title">
         </div>
         <div>
-          <input id="todo-detail" type="todo-detail" placeholder="detail">
+          <input id="todo-detail" type="text" placeholder="detail">
         </div>
         <div>
-          <button id="create-memo-btn">作成</button>
+          <button id="create-memo-btn">create</button>
         </div>
       </div>
     </div>

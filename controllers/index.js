@@ -1,17 +1,44 @@
 $(() => {
-  // ページロードじにストレージからデータを持ってくる
+  // ページロード時にログインモーダルを表示
+  // (あとでローカルストレージでログイン判定を実装)
+  showLoginModal();
+
+  function showLoginModal() {
+    let $shade = $('<div></div>');
+    $shade.attr('id', 'shade');
+
+    let $modalWin = $('#login-modal');
+    let $window = $(window);
+    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
+    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
+
+    $modalWin
+      .before($shade)
+      .css({ left: posX, top: posY })
+      .removeClass('hide')
+      .addClass('show')
+      .on('click', 'button', () => {
+        hideLoginModal();
+      });
+
+    function hideLoginModal() {
+      $('#shade').remove();
+      $('#login-modal')
+        .removeClass('show')
+        .addClass('hide');
+    }
+  }
 
   // モーダル表示
-  $('#open-add-memo-modal-btn').on('click', showModal);
+  $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
 
-  function showModal(event) {
+  function showCreateTaskModal(event) {
     event.preventDefault();
 
     let $shade = $('<div></div>');
-    $shade
-      .attr('id', 'shade')
+    $shade.attr('id', 'shade');
 
-    let $modalWin = $('#modalwin');
+    let $modalWin = $('#create-task-modal');
     // windowはwindowオブジェクトのこと
     let $window = $(window);
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
@@ -23,18 +50,19 @@ $(() => {
       .removeClass('hide')
       .addClass('show')
       .on('click', 'button', () => {
-        hideModal();
+        hideCreateTaskModal();
       });
-  }
 
-  function hideModal () {
-    $('#shade').remove();
-    $('#modalwin')
-      .removeClass('show')
-      .addClass('hide');
+    function hideCreateTaskModal() {
+      $('#shade').remove();
+      $('#create-task-modal')
+        .removeClass('show')
+        .addClass('hide');
+    }
   }
 
   $('#create-memo-btn').on('click', () => {
+    console.log('1111111111111111111111111');
     const todoTitle = $('#todo-title').val();
     const todoDetail = $('#todo-detail').val();
     const userId = 1;
@@ -50,11 +78,9 @@ $(() => {
       },
     })
     .then((res) => {
-      console.log('1111111111111111111111');
       console.log(res);
     })
     .catch((err) => {
-      console.log('00000000000000000000000000');
       console.log(err);
     });
   });
