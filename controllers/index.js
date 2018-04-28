@@ -37,5 +37,25 @@ $(() => {
   $('#create-memo-btn').on('click', () => {
     const todoTitle = $('#todo-title').val();
     const todoDetail = $('#todo-detail').val();
+    const userId = 1;
+
+    $.ajax({
+      type:'POST',
+      url: 'http://localhost:3000/api/tasks/',
+      dataType: 'json',
+      data: {
+        todoTitle,
+        todoDetail,
+        userId,
+      },
+    })
+    .then((res) => {
+      console.log('1111111111111111111111');
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log('00000000000000000000000000');
+      console.log(err);
+    });
   });
 });
