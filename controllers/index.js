@@ -17,7 +17,14 @@ $(() => {
       .css({ left: posX, top: posY })
       .removeClass('hide')
       .addClass('show')
-      .on('click', 'button', () => {
+      .on('click', '#login', () => {
+        console.log('login buttonが押されたよ');
+        // ここにログイン時のajax
+        hideLoginModal();
+      })
+      .on('click', '#sign-up', () => {
+        console.log('sign upボタンが押されたよ');
+        // ここに登録時のajax
         hideLoginModal();
       });
 
@@ -29,7 +36,7 @@ $(() => {
     }
   }
 
-  // モーダル表示
+  // タスク作成モーダル表示
   $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
 
   function showCreateTaskModal(event) {
@@ -49,7 +56,7 @@ $(() => {
       .css({left: posX, top: posY})
       .removeClass('hide')
       .addClass('show')
-      .on('click', 'button', () => {
+      .on('click', '#create-memo-btn', () => {
         hideCreateTaskModal();
       });
 
