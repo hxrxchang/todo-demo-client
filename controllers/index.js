@@ -12,21 +12,28 @@ $(() => {
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
     let posY = ($window.height() - $modalWin.outerHeight()) / 2;
 
+    let userId = $('#user-name').val();
+    let password = $('#password').val();
+
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
       .removeClass('hide')
-      .addClass('show')
-      .on('click', '#login', () => {
-        console.log('login buttonが押されたよ');
-        // ここにログイン時のajax
-        hideLoginModal();
-      })
-      .on('click', '#sign-up', () => {
-        console.log('sign upボタンが押されたよ');
-        // ここに登録時のajax
-        hideLoginModal();
-      });
+      .addClass('show');
+
+    $('#close-login-modal').on('click', () => {
+      hideLoginModal();
+    });
+
+    $('#login').on('click', () => {
+      console.log('1111111111111111111111111111111111111111111');
+      hideLoginModal();
+    });
+
+    $('#sign-up').on('click', () => {
+      console.log('222222222222222222222222222222222222222222222');
+      hideLoginModal();
+    });
 
     function hideLoginModal() {
       $('#shade').remove();
@@ -55,10 +62,37 @@ $(() => {
       .before($shade)
       .css({left: posX, top: posY})
       .removeClass('hide')
-      .addClass('show')
-      .on('click', '#create-memo-btn', () => {
+      .addClass('show');
+
+    $('#close-task-modal').on('click', () => {
+      hideCreateTaskModal();
+    });
+
+    $('#create-memo-btn').on('click', () => {
+      console.log('1111111111111111111111111');
+      const todoTitle = $('#todo-title').val();
+      const todoDetail = $('#todo-detail').val();
+      const userId = 1;
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/tasks/',
+        dataType: 'json',
+        data: {
+          todoTitle,
+          todoDetail,
+          userId,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        hideCreateTaskModal();
+      })
+      .catch((err) => {
+        console.log(err);
         hideCreateTaskModal();
       });
+    });
 
     function hideCreateTaskModal() {
       $('#shade').remove();
@@ -67,28 +101,4 @@ $(() => {
         .addClass('hide');
     }
   }
-
-  $('#create-memo-btn').on('click', () => {
-    console.log('1111111111111111111111111');
-    const todoTitle = $('#todo-title').val();
-    const todoDetail = $('#todo-detail').val();
-    const userId = 1;
-
-    $.ajax({
-      type:'POST',
-      url: 'http://localhost:3000/api/tasks/',
-      dataType: 'json',
-      data: {
-        todoTitle,
-        todoDetail,
-        userId,
-      },
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  });
 });

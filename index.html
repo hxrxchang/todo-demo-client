@@ -18,10 +18,9 @@
 
     <!-- ログイン時のモーダル -->
     <div id="login-modal" class="modalwin hide">
-      <a href="#" class="modal-close"></a>
       <h1>ToDo
         <span>
-          <button>×</button>
+          <button id="close-login-modal">×</button>
         </span>
       </h1>
       <div class="modalwin-contents">
@@ -29,7 +28,7 @@
           <input id="user-name" type="text" placeholder="user name">
         </div>
         <div>
-          <input id="user-password" type="text" placeholder="password">
+          <input id="user-password" type="password" placeholder="password">
         </div>
         <div>
           <button id="login">login</button>
@@ -40,10 +39,9 @@
 
     <!-- todo作成用のモーダル -->
     <div id="create-task-modal" class="modalwin hide">
-      <a href="#" class="modal-close"></a>
       <h1>ToDo
         <span>
-          <button>×</button>
+          <button id="close-task-modal">×</button>
         </span>
       </h1>
       <div class="modalwin-contents">
