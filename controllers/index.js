@@ -21,10 +21,6 @@ $(() => {
       .removeClass('hide')
       .addClass('show');
 
-    $('#close-login-modal').on('click', () => {
-      hideLoginModal();
-    });
-
     $('#login').on('click', () => {
       console.log('1111111111111111111111111111111111111111111');
       hideLoginModal();
