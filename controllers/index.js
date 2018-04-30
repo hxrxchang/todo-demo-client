@@ -12,8 +12,6 @@ $(() => {
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
     let posY = ($window.height() - $modalWin.outerHeight()) / 2;
 
-    let userId = $('#user-name').val();
-    let password = $('#password').val();
 
     $modalWin
       .before($shade)
@@ -21,13 +19,52 @@ $(() => {
       .removeClass('hide')
       .addClass('show');
 
+    let userName;
+    let password;
+
     $('#login').on('click', () => {
-      console.log('1111111111111111111111111111111111111111111');
+      userName = $('#user-name').val();
+      password = $('#user-password').val();
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/users/login',
+        dataType: 'json',
+        data: {
+          userName,
+          password
+        },
+      })
+      .then((res) => {
+        console.log('成功', res);
+      })
+      .catch(() => {
+        console.log('失敗');
+      });
+
       hideLoginModal();
     });
 
     $('#sign-up').on('click', () => {
-      console.log('222222222222222222222222222222222222222222222');
+      userName = $('#user-name').val();
+      password = $('#user-password').val();
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/users/sign-up',
+        dataType: 'json',
+        data: {
+          userName,
+          password
+        },
+      })
+      .then((res) => {
+        console.log('成功', res);
+      })
+      .catch(() => {
+        console.log('失敗');
+      });
+
       hideLoginModal();
     });
 
