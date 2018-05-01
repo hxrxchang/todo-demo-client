@@ -109,7 +109,7 @@ $(() => {
 
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/api/tasks/',
+        url: 'http://localhost:3000/api/tasks/create',
         dataType: 'json',
         data: {
           todoTitle,
