@@ -1,7 +1,31 @@
 $(() => {
-  // ページロード時にログインモーダルを表示
-  // (あとでローカルストレージでログイン判定を実装)
-  showLoginModal();
+  // ページロード時の挙動
+  // ローカルストレージからuserIdを取得
+  // userIdがあればログイン済み、 なければ登録モーダルを表示
+  let userId = localStorage.getItem('userId');
+
+  if (!userId) {
+    showLoginModal();
+  } else {
+    getTasks(userId);
+  }
+
+  function getTasks(userId) {
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/api/tasks',
+      dataType: 'json',
+      data: {
+        userId
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   function showLoginModal() {
     let $shade = $('<div></div>');
@@ -37,12 +61,19 @@ $(() => {
       })
       .then((res) => {
         console.log('成功', res);
-      })
-      .catch(() => {
-        console.log('失敗');
-      });
+        if (res.content.length) {
+          userId = res.content[0].id;
+          localStorage.setItem('userId', userId);
 
-      hideLoginModal();
+          hideLoginModal();
+          getTasks(userId);
+        } else {
+          console.log('ユーザー名、パスワードが違います');
+        }
+      })
+      .catch((err) => {
+        console.log('失敗', err);
+      });
     });
 
     $('#sign-up').on('click', () => {
@@ -60,12 +91,11 @@ $(() => {
       })
       .then((res) => {
         console.log('成功', res);
+        hideLoginModal();
       })
       .catch(() => {
         console.log('失敗');
       });
-
-      hideLoginModal();
     });
 
     function hideLoginModal() {
