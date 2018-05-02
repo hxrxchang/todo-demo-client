@@ -20,7 +20,52 @@ $(() => {
       },
     })
     .then((res) => {
-      console.log(res);
+      let taskList = res.content;
+      taskList.forEach((task) => {
+        let taskId = task.id;
+        let taskTitle = task.title;
+        let taskDescription = task.description;
+
+        let $taskItemDom = $('<div class="task-item">');
+        let $taskTitleDom = $('<span class="task-title">');
+        $taskTitleDom.text(taskTitle);
+        $taskItemDom.append($taskTitleDom);
+
+        let $taskDescriptionDom = $('<span class="task-description">')
+        $taskDescriptionDom.text(taskDescription);
+        $taskItemDom.append($taskDescriptionDom);
+
+        let $editBtnDom = $('<button class="edit-task-btn">');
+        $editBtnDom.text('編集');
+        $editBtnDom.on('click', () => {
+          console.log('1111111111111111111111111111111111111111');
+          console.log(taskId);
+        });
+        $taskItemDom.append($editBtnDom);
+
+        let $completeBtnDom = $('<button class="complete-task-btn">');
+        $completeBtnDom.text('完了');
+        $completeBtnDom.on('click', () => {
+          console.log('22222222222222222222222222222222222222');
+        });
+        $taskItemDom.append($completeBtnDom);
+
+        let $deleteBtnDom = $('<button class="delete-task-btn">');
+        $($deleteBtnDom).text('削除');
+        $deleteBtnDom.on('click', () => {
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/api/tasks/delete',
+            dataType: 'json',
+            data: {
+              taskId,
+            },
+          });
+        });
+        $taskItemDom.append($deleteBtnDom);
+
+        $('#task-list').append($taskItemDom);
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -60,7 +105,6 @@ $(() => {
         },
       })
       .then((res) => {
-        console.log('成功', res);
         if (res.content.length) {
           userId = res.content[0].id;
           localStorage.setItem('userId', userId);
@@ -90,7 +134,9 @@ $(() => {
         },
       })
       .then((res) => {
-        console.log('成功', res);
+        userId = res.content.id;
+        localStorage.setItem('userId', userId);
+
         hideLoginModal();
       })
       .catch(() => {
@@ -132,7 +178,6 @@ $(() => {
     });
 
     $('#create-memo-btn').on('click', () => {
-      console.log('1111111111111111111111111');
       const todoTitle = $('#todo-title').val();
       const todoDetail = $('#todo-detail').val();
       const userId = 1;
@@ -152,7 +197,6 @@ $(() => {
         hideCreateTaskModal();
       })
       .catch((err) => {
-        console.log(err);
         hideCreateTaskModal();
       });
     });
