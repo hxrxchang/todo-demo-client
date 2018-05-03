@@ -64,7 +64,7 @@ $(() => {
         });
         $taskItemDom.append($deleteBtnDom);
 
-        $('#task-list').append($taskItemDom);
+        $('#not-completed-task-list').append($taskItemDom);
       });
     })
     .catch((err) => {
@@ -208,4 +208,17 @@ $(() => {
         .addClass('hide');
     }
   }
+
+  let hasGetCompletedTasks = false;
+  $('#show-completed-tasks').on('click', () => {
+    if (!hasGetCompletedTasks) {
+      $('#not-completed-task-list').hide();
+      $('#completed-task-list').show();
+    }
+  });
+
+  $('#show-not-completed-tasks').on('click', () => {
+    $('#completed-task-list').hide();
+    $('#not-completed-task-list').show();
+  });
 });

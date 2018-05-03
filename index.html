@@ -14,7 +14,12 @@
     <header>
       <button id="open-add-memo-modal-btn">+</button>
     </header>
-    <div id="task-list"></div>
+    <div id="main-container">
+      <a href="javascript:void(0);" class="change-tab-btn" id="show-not-completed-tasks">未完了</a>
+      <a href="javascript:void(0);" class="change-tab-btn" id="show-completed-tasks">完了済み</a>
+      <div id="not-completed-task-list"></div>
+      <div id="completed-task-list"></div>
+    </div>
 
     <!-- ログイン時のモーダル -->
     <div id="login-modal" class="modalwin hide">

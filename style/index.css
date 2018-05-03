@@ -73,6 +73,19 @@ header {
   z-index: 1;
 }
 
+.change-tab-btn {
+  text-decoration: none;
+  color: black;
+}
+
+/* #not-completed-task-list {
+
+} */
+
+#completed-task-list {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .modalwin {
       width: 90%;
