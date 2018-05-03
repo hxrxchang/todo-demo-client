@@ -29,7 +29,6 @@ $(() => {
     })
     .then((res) => {
       let taskList = res.content;
-      console.log(taskList);
       taskList.forEach((task) => {
         let taskId = task.id;
         let taskTitle = task.title;
@@ -53,6 +52,14 @@ $(() => {
         let $completeBtnDom = $('<button class="complete-task-btn">');
         $completeBtnDom.text('完了');
         $completeBtnDom.on('click', () => {
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/api/tasks/complete',
+            dataType: 'json',
+            data: {
+              taskId,
+            },
+          });
         });
         $taskItemDom.append($completeBtnDom);
 
