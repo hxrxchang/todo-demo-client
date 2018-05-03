@@ -7,20 +7,29 @@ $(() => {
   if (!userId) {
     showLoginModal();
   } else {
-    getTasks(userId);
+    getTasks({userId});
   }
 
-  function getTasks(userId) {
+  function getTasks(argumentObj) {
+    let userId = argumentObj.userId;
+    let requestCompletedTask = argumentObj.requestCompletedTask;
+    let requestDeletedTask = argumentObj.requestDeletedTask;
+    let data = {
+      userId
+    };
+
+    if (requestCompletedTask) data.requestCompletedTask = requestCompletedTask;
+    if (requestDeletedTask) data.requestDeletedTask = requestDeletedTask;
+
     $.ajax({
       type: 'POST',
       url: 'http://localhost:3000/api/tasks',
       dataType: 'json',
-      data: {
-        userId
-      },
+      data
     })
     .then((res) => {
       let taskList = res.content;
+      console.log(taskList);
       taskList.forEach((task) => {
         let taskId = task.id;
         let taskTitle = task.title;
@@ -38,15 +47,12 @@ $(() => {
         let $editBtnDom = $('<button class="edit-task-btn">');
         $editBtnDom.text('編集');
         $editBtnDom.on('click', () => {
-          console.log('1111111111111111111111111111111111111111');
-          console.log(taskId);
         });
         $taskItemDom.append($editBtnDom);
 
         let $completeBtnDom = $('<button class="complete-task-btn">');
         $completeBtnDom.text('完了');
         $completeBtnDom.on('click', () => {
-          console.log('22222222222222222222222222222222222222');
         });
         $taskItemDom.append($completeBtnDom);
 
@@ -64,7 +70,11 @@ $(() => {
         });
         $taskItemDom.append($deleteBtnDom);
 
-        $('#not-completed-task-list').append($taskItemDom);
+        if (requestCompletedTask) {
+          $('#completed-task-list').append($taskItemDom);
+        } else {
+          $('#not-completed-task-list').append($taskItemDom);
+        }
       });
     })
     .catch((err) => {
@@ -110,7 +120,7 @@ $(() => {
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
-          getTasks(userId);
+          getTasks({userId});
         } else {
           console.log('ユーザー名、パスワードが違います');
         }
@@ -209,11 +219,16 @@ $(() => {
     }
   }
 
+  // タブの切り替え
   let hasGetCompletedTasks = false;
   $('#show-completed-tasks').on('click', () => {
+    $('#not-completed-task-list').hide();
+    $('#completed-task-list').show();
+
     if (!hasGetCompletedTasks) {
-      $('#not-completed-task-list').hide();
-      $('#completed-task-list').show();
+      let requestCompletedTask = true;
+      getTasks({userId, requestCompletedTask});
+      hasGetCompletedTasks = true;
     }
   });
 
