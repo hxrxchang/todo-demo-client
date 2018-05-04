@@ -140,7 +140,7 @@ header {
   border-radius: 5px;
 }
 
-#todo-title {
+.todo-title {
   height: 20px;
   width: 400px;
   border: 2px solid rgb(224, 220, 220);
@@ -149,7 +149,7 @@ header {
   padding: 10px;
 }
 
-#todo-detail {
+.todo-detail {
   margin: 20px 0 0 0;
   height: 80px;
   width: 400px;
@@ -159,7 +159,7 @@ header {
   padding: 10px;
 }
 
-#create-task-btn {
+.task-btn {
   margin: 20px 0;
   height: 30px;
   width: 100px;

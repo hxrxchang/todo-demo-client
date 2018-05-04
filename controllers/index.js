@@ -36,19 +36,11 @@ $(() => {
         let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
-        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">');
+        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
+          showEditTaskModal(task);
+        });
         $taskTitleDom.text(taskTitle);
         $taskItemDom.append($taskTitleDom);
-
-        let $taskDescriptionDom = $('<a class="task-description" href="javascript:void(0);">')
-        $taskDescriptionDom.text(taskDescription);
-        $taskItemDom.append($taskDescriptionDom);
-
-        let $editBtnDom = $('<button class="edit-task-btn">');
-        $editBtnDom.text('編集');
-        $editBtnDom.on('click', () => {
-        });
-        $taskItemDom.append($editBtnDom);
 
         let $completeBtnDom = $('<button class="complete-task-btn">');
         $completeBtnDom.text('完了');
@@ -124,6 +116,38 @@ $(() => {
     function hideConfirmDeleteTaskModal() {
       $('#shade').remove();
       $('#confirm-delete-task-modal')
+        .removeClass('show')
+        .addClass('hide');
+    }
+  }
+
+  // タスクの閲覧編集用モーダル表示
+  function showEditTaskModal(task) {
+    let $shade = $('<div></div>');
+    $shade.attr('id', 'shade');
+
+    let $modalWin = $('#edit-task-modal');
+    let $window = $(window);
+    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
+    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
+
+
+    $modalWin
+      .before($shade)
+      .css({ left: posX, top: posY })
+      .removeClass('hide')
+      .addClass('show');
+
+    $('#edit-todo-title').val(task.title);
+    $('#edit-todo-detail').val(task.description);
+
+    $('#close-edit-task-modal').on('click', () => {
+      hideEditTaskModal();
+    });
+
+    function hideEditTaskModal() {
+      $('#shade').remove();
+      $('#edit-task-modal')
         .removeClass('show')
         .addClass('hide');
     }
@@ -243,8 +267,8 @@ $(() => {
     });
 
     $('#create-task-btn').on('click', () => {
-      const todoTitle = $('#todo-title').val();
-      const todoDetail = $('#todo-detail').val();
+      const todoTitle = $('#create-todo-title').val();
+      const todoDetail = $('#create-todo-detail').val();
 
       if (!todoTitle) {
         return alert('タイトルを入力してください');

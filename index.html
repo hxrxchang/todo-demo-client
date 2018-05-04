@@ -48,13 +48,33 @@
       </h1>
       <div class="modalwin-contents">
         <div>
-          <input id="todo-title" type="text" placeholder="title">
+          <input id="create-todo-title" class="todo-title" type="text" placeholder="title">
         </div>
         <div>
-          <textarea id="todo-detail" type="text" placeholder="detail"></textarea>
+          <textarea id="create-todo-detail" class="todo-detail" type="text" placeholder="detail"></textarea>
         </div>
         <div>
-          <button id="create-task-btn">create</button>
+          <button id="create-task-btn" class="task-btn">create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- todoの閲覧、編集用モーダル -->
+    <div id="edit-task-modal" class="modalwin hide">
+      <h1>ToDo
+        <span>
+          <button id="close-edit-task-modal">×</button>
+        </span>
+      </h1>
+      <div class="modalwin-contents">
+        <div>
+          <input id="edit-todo-title" class="todo-title" type="text" placeholder="title">
+        </div>
+        <div>
+          <textarea id="edit-todo-detail" class="todo-detail" type="text" placeholder="detail"></textarea>
+        </div>
+        <div>
+          <button id="edit-task-btn" class="task-btn">update</button>
         </div>
       </div>
     </div>
