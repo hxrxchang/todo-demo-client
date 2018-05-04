@@ -152,6 +152,10 @@ $(() => {
       userName = $('#user-name').val();
       password = $('#user-password').val();
 
+      if (!(userName && password)) {
+        return alert('ユーザーネームとパスワードを入力してください');
+      }
+
       $.ajax({
         type: 'POST',
         url: 'http://localhost:3000/api/users/login',
@@ -180,6 +184,10 @@ $(() => {
     $('#sign-up').on('click', () => {
       userName = $('#user-name').val();
       password = $('#user-password').val();
+
+      if (!(userName && password)) {
+        return alert('ユーザーネームとパスワードを入力してください');
+      }
 
       $.ajax({
         type: 'POST',
@@ -234,10 +242,13 @@ $(() => {
       hideCreateTaskModal();
     });
 
-    $('#create-memo-btn').on('click', () => {
+    $('#create-task-btn').on('click', () => {
       const todoTitle = $('#todo-title').val();
       const todoDetail = $('#todo-detail').val();
-      const userId = 1;
+
+      if (!todoTitle) {
+        return alert('タイトルを入力してください');
+      }
 
       $.ajax({
         type: 'POST',
@@ -272,8 +283,14 @@ $(() => {
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
     $('#completed-task-list').show();
-    $('#show-not-completed-tasks').css('border-bottom', 'none');
-    $('#show-completed-tasks').css('border-bottom', '6px solid red');
+    $('#show-not-completed-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
+    $('#show-completed-tasks').css({
+      'border-bottom': '6px solid red',
+      'color': 'black'
+    });
 
     if (!hasGetCompletedTasks) {
       let requestCompletedTask = true;
@@ -286,7 +303,13 @@ $(() => {
   $('#show-not-completed-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#not-completed-task-list').show();
-    $('#show-completed-tasks').css('border-bottom', 'none');
-    $('#show-not-completed-tasks').css('border-bottom', '6px solid red');
+    $('#show-completed-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
+    $('#show-not-completed-tasks').css({
+      'border-bottom': '6px solid red',
+      'color': 'black'
+    });
   });
 });

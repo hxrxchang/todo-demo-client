@@ -96,6 +96,7 @@ header {
   font-size: 30px;
   margin-left: 20px;
   padding-bottom: 10px;
+  color: gray;
 }
 
 #completed-task-list {
