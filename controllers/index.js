@@ -141,6 +141,34 @@ $(() => {
     $('#edit-todo-title').val(taskTitle);
     $('#edit-todo-detail').val(taskDescription);
 
+    $('#edit-task-btn').on('click', () => {
+      let newTitle = $('#edit-todo-title').val();
+      let newDetail = $('#edit-todo-detail').val();
+
+      if (!newTitle) {
+        return alert('タイトルは必須です');
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/tasks/edit',
+        dataType: 'json',
+        data: {
+          taskId,
+          newTitle,
+          newDetail
+        }
+      })
+      .then(() => {
+        hideEditTaskModal();
+      })
+      .catch(() => {
+        alert('更新に失敗しました');
+        hideEditTaskModal();
+      });
+    });
+
+
     $('#close-edit-task-modal').on('click', () => {
       hideEditTaskModal();
     });
