@@ -1,11 +1,13 @@
 # todo-demo-client
 ## install
-git clone git@github.com:hxrxchang/todo-demo-client.git
+```
+$ git clone git@github.com:hxrxchang/todo-demo-client.git
+```
 
 ## start
 just run this command
 ```
-open index.html
+$ open index.html
 ```
 
 This project has API .
