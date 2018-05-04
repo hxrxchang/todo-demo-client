@@ -5,6 +5,10 @@ $ git clone git@github.com:hxrxchang/todo-demo-client.git
 ```
 
 ## start
+move to this directory
+```
+cd todo-demo-api
+```
 just run this command
 ```
 $ open index.html
