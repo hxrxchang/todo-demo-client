@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
 body .container{
   position: relative;
   margin: 0 10%;
@@ -14,7 +19,7 @@ header {
 }
 
 .task-list {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 #open-add-memo-modal-btn {
@@ -81,22 +86,57 @@ header {
   z-index: 1;
 }
 
-.change-tab-btn {
-  text-decoration: none;
-  color: black;
-}
-
 #show-not-completed-tasks {
   font-size: 30px;
+  padding-bottom: 10px;
+  border-bottom: 6px solid red;
 }
 
 #show-completed-tasks {
   font-size: 30px;
   margin-left: 20px;
+  padding-bottom: 10px;
 }
 
 #completed-task-list {
   display: none;
+}
+
+#user-name {
+  height: 10px;
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+#user-password {
+  margin-top: 10px;
+  height: 10px;
+  border: 2px solid skyblue;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+#user-btn-group {
+  margin-top: 10px;
+}
+
+#login {
+  height: 30px;
+  width: 70px;
+  margin-right: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+#sign-up {
+  height: 30px;
+  width: 70px;
+  margin-left: 10px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 #todo-title {
@@ -104,6 +144,8 @@ header {
   width: 400px;
   border: 2px solid skyblue;
   border-radius: 10px;
+  font-size: 20px;
+  padding: 10px;
 }
 
 #todo-detail {
@@ -111,6 +153,16 @@ header {
   height: 80px;
   width: 400px;
   border: 2px solid skyblue;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+#create-task-btn {
+  margin: 20px 0;
+  height: 30px;
+  width: 100px;
+  font-size: 20px;
   border-radius: 10px;
 }
 

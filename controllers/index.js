@@ -36,11 +36,11 @@ $(() => {
         let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
-        let $taskTitleDom = $('<span class="task-title">');
+        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">');
         $taskTitleDom.text(taskTitle);
         $taskItemDom.append($taskTitleDom);
 
-        let $taskDescriptionDom = $('<span class="task-description">')
+        let $taskDescriptionDom = $('<a class="task-description" href="javascript:void(0);">')
         $taskDescriptionDom.text(taskDescription);
         $taskItemDom.append($taskDescriptionDom);
 
@@ -58,7 +58,8 @@ $(() => {
             url: 'http://localhost:3000/api/tasks/complete',
             dataType: 'json',
             data: {
-              taskId, isCompleted,
+              taskId,
+              isCompleted,
             },
           });
         });
@@ -271,6 +272,8 @@ $(() => {
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
     $('#completed-task-list').show();
+    $('#show-not-completed-tasks').css('border-bottom', 'none');
+    $('#show-completed-tasks').css('border-bottom', '6px solid red');
 
     if (!hasGetCompletedTasks) {
       let requestCompletedTask = true;
@@ -283,5 +286,7 @@ $(() => {
   $('#show-not-completed-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#not-completed-task-list').show();
+    $('#show-completed-tasks').css('border-bottom', 'none');
+    $('#show-not-completed-tasks').css('border-bottom', '6px solid red');
   });
 });
