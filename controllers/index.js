@@ -33,6 +33,7 @@ $(() => {
         let taskId = task.id;
         let taskTitle = task.title;
         let taskDescription = task.description;
+        let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
         let $taskTitleDom = $('<span class="task-title">');
@@ -57,7 +58,7 @@ $(() => {
             url: 'http://localhost:3000/api/tasks/complete',
             dataType: 'json',
             data: {
-              taskId,
+              taskId, isCompleted,
             },
           });
         });
