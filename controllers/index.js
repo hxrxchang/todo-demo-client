@@ -37,7 +37,7 @@ $(() => {
 
         let $taskItemDom = $('<div class="task-item">');
         let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
-          showEditTaskModal(task);
+          showEditTaskModal(taskId, taskTitle, taskDescription);
         });
         $taskTitleDom.text(taskTitle);
         $taskItemDom.append($taskTitleDom);
@@ -122,7 +122,7 @@ $(() => {
   }
 
   // タスクの閲覧編集用モーダル表示
-  function showEditTaskModal(task) {
+  function showEditTaskModal(taskId, taskTitle, taskDescription) {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -138,8 +138,8 @@ $(() => {
       .removeClass('hide')
       .addClass('show');
 
-    $('#edit-todo-title').val(task.title);
-    $('#edit-todo-detail').val(task.description);
+    $('#edit-todo-title').val(taskTitle);
+    $('#edit-todo-detail').val(taskDescription);
 
     $('#close-edit-task-modal').on('click', () => {
       hideEditTaskModal();
