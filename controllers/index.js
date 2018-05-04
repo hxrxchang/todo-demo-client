@@ -66,14 +66,7 @@ $(() => {
         let $deleteBtnDom = $('<button class="delete-task-btn">');
         $($deleteBtnDom).text('削除');
         $deleteBtnDom.on('click', () => {
-          $.ajax({
-            type: 'POST',
-            url: 'http://localhost:3000/api/tasks/delete',
-            dataType: 'json',
-            data: {
-              taskId,
-            },
-          });
+          showConfirmDeleteTaskModal(taskId);
         });
         $taskItemDom.append($deleteBtnDom);
 
@@ -87,6 +80,51 @@ $(() => {
     .catch((err) => {
       alert('サーバーが応答しません');
     });
+  }
+
+  function showConfirmDeleteTaskModal(taskId) {
+    let $shade = $('<div></div>');
+    $shade.attr('id', 'shade');
+
+    let $modalWin = $('#confirm-delete-task-modal');
+    let $window = $(window);
+    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
+    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
+
+
+    $modalWin
+      .before($shade)
+      .css({ left: posX, top: posY })
+      .removeClass('hide')
+      .addClass('show');
+
+    $('#delete-task-button').on('click', () => {
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/tasks/delete',
+        dataType: 'json',
+        data: {
+          taskId,
+        },
+      })
+      .then(() => {
+        hideConfirmDeleteTaskModal();
+      })
+      .catch(() => {
+        alert('通信に失敗しました');
+      });
+    });
+
+    $('#not-delete-task-button').on('click', () => {
+      hideConfirmDeleteTaskModal();
+    });
+
+    function hideConfirmDeleteTaskModal() {
+      $('#shade').remove();
+      $('#confirm-delete-task-modal')
+        .removeClass('show')
+        .addClass('hide');
+    }
   }
 
   function showLoginModal() {
