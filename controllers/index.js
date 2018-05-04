@@ -85,7 +85,7 @@ $(() => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      alert('サーバーが応答しません');
     });
   }
 
@@ -129,11 +129,11 @@ $(() => {
           hideLoginModal();
           getTasks({userId});
         } else {
-          console.log('ユーザー名、パスワードが違います');
+          alert('ユーザー名、パスワードが違います');
         }
       })
       .catch((err) => {
-        console.log('失敗', err);
+        alert('通信に失敗しました');
       });
     });
 
@@ -157,7 +157,7 @@ $(() => {
         hideLoginModal();
       })
       .catch(() => {
-        console.log('失敗');
+        alert('通信に失敗しました');
       });
     });
 
@@ -227,6 +227,7 @@ $(() => {
   }
 
   // タブの切り替え
+  // hasGetCompletedTasksはすでにajaxで完了済みタスクを取得したかどうかのフラグ
   let hasGetCompletedTasks = false;
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
@@ -235,6 +236,7 @@ $(() => {
     if (!hasGetCompletedTasks) {
       let requestCompletedTask = true;
       getTasks({userId, requestCompletedTask});
+
       hasGetCompletedTasks = true;
     }
   });
