@@ -104,7 +104,7 @@ header {
 
 #user-name {
   height: 10px;
-  border: 2px solid skyblue;
+  border: 2px solid rgb(224, 220, 220);
   border-radius: 10px;
   font-size: 20px;
   padding: 10px;
@@ -113,7 +113,7 @@ header {
 #user-password {
   margin-top: 10px;
   height: 10px;
-  border: 2px solid skyblue;
+  border: 2px solid rgb(224, 220, 220);
   border-radius: 10px;
   font-size: 20px;
   padding: 10px;
@@ -142,7 +142,7 @@ header {
 #todo-title {
   height: 20px;
   width: 400px;
-  border: 2px solid skyblue;
+  border: 2px solid rgb(224, 220, 220);
   border-radius: 10px;
   font-size: 20px;
   padding: 10px;
@@ -152,7 +152,7 @@ header {
   margin: 20px 0 0 0;
   height: 80px;
   width: 400px;
-  border: 2px solid skyblue;
+  border: 2px solid rgb(224, 220, 220);
   border-radius: 10px;
   font-size: 20px;
   padding: 10px;
