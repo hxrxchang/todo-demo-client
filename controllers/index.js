@@ -248,10 +248,10 @@ $(() => {
         },
       })
       .then((res) => {
-        console.log(res);
         hideCreateTaskModal();
       })
       .catch((err) => {
+        alert('保存に失敗しました');
         hideCreateTaskModal();
       });
     });

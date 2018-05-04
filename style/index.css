@@ -86,12 +86,42 @@ header {
   color: black;
 }
 
-/* #not-completed-task-list {
+#show-not-completed-tasks {
+  font-size: 30px;
+}
 
-} */
+#show-completed-tasks {
+  font-size: 30px;
+  margin-left: 20px;
+}
 
 #completed-task-list {
   display: none;
+}
+
+#todo-title {
+  height: 20px;
+  width: 400px;
+  border: 2px solid skyblue;
+  border-radius: 10px;
+}
+
+#todo-detail {
+  margin: 20px 0 0 0;
+  height: 80px;
+  width: 400px;
+  border: 2px solid skyblue;
+  border-radius: 10px;
+}
+
+.task-item {
+  margin: 20px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(224, 220, 220);
+}
+
+#create-memo-btn {
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 600px) {
