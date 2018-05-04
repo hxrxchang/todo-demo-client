@@ -7,7 +7,7 @@ $ git clone git@github.com:hxrxchang/todo-demo-client.git
 ## start
 move to this directory
 ```
-cd todo-demo-api
+cd todo-demo-client
 ```
 just run this command
 ```
