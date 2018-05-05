@@ -23,7 +23,6 @@ $(function() {
       data
     })
     .then((res) => {
-      console.log(res, res.content.length);
       let taskList = res.content;
       taskList.forEach((task) => {
         let taskId = task.id;
