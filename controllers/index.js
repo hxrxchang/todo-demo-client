@@ -223,11 +223,17 @@ $(function() {
       hideCreateTaskModal();
     });
 
+    let inProcessingFlag = false;
     $('#create-task-btn').on('click', () => {
+      if (inProcessingFlag) return false;
+
+      inProcessingFlag = true;
+
       const todoTitle = $('#create-todo-title').val();
       const todoDetail = $('#create-todo-detail').val();
 
       if (!todoTitle) {
+        inProcessingFlag = false;
         return alert('タイトルを入力してください');
       }
 
@@ -241,16 +247,18 @@ $(function() {
           userId,
         },
       })
-        .then((res) => {
-          $('#create-todo-title').val('');
-          $('#create-todo-detail').val('');
-          hideCreateTaskModal();
-          initScreen();
-        })
-        .catch((err) => {
-          alert('保存に失敗しました');
-          hideCreateTaskModal();
-        });
+      .then((res) => {
+        $('#create-todo-title').val('');
+        $('#create-todo-detail').val('');
+        hideCreateTaskModal();
+        initScreen();
+      })
+      .catch((err) => {
+        alert('保存に失敗しました');
+        hideCreateTaskModal();
+      });
+
+      inProcessingFlag = false;
     });
 
     function hideCreateTaskModal() {
@@ -262,6 +270,8 @@ $(function() {
   }
 
 
+  // ログイン、サインアップ用のモーダル
+  // ローカルストレージにユーザーデータがないときに呼ばれる
   function showLoginModal() {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
@@ -270,7 +280,6 @@ $(function() {
     let $window = $(window);
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
     let posY = ($window.height() - $modalWin.outerHeight()) / 2;
-
 
     $modalWin
       .before($shade)
