@@ -173,6 +173,25 @@ header {
   margin: 20px 0;
   padding-bottom: 20px;
   border-bottom: 1px solid rgb(224, 220, 220);
+  position: relative;
+}
+
+.task-title {
+  margin-left: 20px;
+  font-size: 40px;
+  padding-right: 620px;
+}
+
+.delete-task-btn {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.task-complete-btn {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
 }
 
 #create-memo-btn {
@@ -193,12 +212,6 @@ header {
   margin-left: 10px;
   font-size: 16px;
   border-radius: 5px;
-}
-
-.task-complete-btn {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
 }
 
 @media screen and (max-width: 600px) {
