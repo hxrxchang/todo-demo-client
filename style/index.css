@@ -23,7 +23,7 @@ header {
   width: 60px;
   border-width: bold;
   border-radius: 50%;
-  padding-bottom: 6px;
+  border: 1px solid rgb(148, 145, 145);
 }
 
 #main-container {
@@ -189,9 +189,10 @@ header {
 }
 
 .task-complete-btn {
+  border: 1px solid rgb(148, 145, 145);
+  border-radius: 30px;
   height: 30px;
   width: 30px;
-  border-radius: 50%;
 }
 
 #create-memo-btn {
