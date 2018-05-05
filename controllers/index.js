@@ -1,14 +1,20 @@
-$(() => {
+$(function() {
   // ページロード時の挙動
   // ローカルストレージからuserIdを取得
   // userIdがあればログイン済み、 なければ登録モーダルを表示
   let userId = localStorage.getItem('userId');
+  let requestCompletedTask = true;
 
   if (!userId) {
     showLoginModal();
   } else {
-    getTasks({userId});
-    let requestCompletedTask = true;
+    initScreen();
+  }
+
+  function initScreen() {
+    $('#completed-task-list').empty();
+    $('#not-completed-task-list').empty();
+    getTasks({ userId });
     getTasks({ userId, requestCompletedTask });
   }
 
@@ -38,20 +44,9 @@ $(() => {
         let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
-        let $completeBtn = $('<input type="checkbox" class="task-complete-btn">');
+        let $completeBtn = $('<button class="task-complete-btn">');
         $completeBtn.on('click', () => {
-          $.ajax({
-            type: 'POST',
-            url: 'http://localhost:3000/api/tasks/complete',
-            dataType: 'json',
-            data: {
-              taskId,
-              isCompleted,
-            },
-          })
-          .then(() => {
-            $completeBtn.parent().remove();
-          })
+          changeTaskStatus(taskId, isCompleted);
         });
         $taskItemDom.append($completeBtn);
 
@@ -64,7 +59,7 @@ $(() => {
         let $deleteBtnDom = $('<button class="delete-task-btn">');
         $($deleteBtnDom).text('削除');
         $deleteBtnDom.on('click', () => {
-          showConfirmDeleteTaskModal(taskId, $deleteBtnDom);
+          showConfirmDeleteTaskModal(taskId, $taskItemDom);
         });
         $taskItemDom.append($deleteBtnDom);
 
@@ -80,7 +75,24 @@ $(() => {
     });
   }
 
-  function showConfirmDeleteTaskModal(taskId, $deleteBtnDom) {
+  // タスクの完了未完了を切り替えるAPIを叩く関数
+  function changeTaskStatus(taskId, isCompleted) {
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/api/tasks/complete',
+      dataType: 'json',
+      data: {
+        taskId,
+        isCompleted,
+      },
+    })
+    .then(() => {
+      initScreen();
+    });
+  }
+
+  // モーダルを表示して、タスクを削除するAPIを叩く関数
+  function showConfirmDeleteTaskModal(taskId, $taskItemDom) {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -107,7 +119,7 @@ $(() => {
       })
       .then(() => {
         hideConfirmDeleteTaskModal();
-        $deleteBtnDom.parent().remove();
+        initScreen();
       })
       .catch(() => {
         alert('通信に失敗しました');
@@ -126,7 +138,7 @@ $(() => {
     }
   }
 
-  // タスクの閲覧編集用モーダル表示
+  // タスクの閲覧編集用モーダル表示して、タスクのデータをアップデートする
   function showEditTaskModal(taskId, taskTitle, taskDescription) {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
@@ -135,7 +147,6 @@ $(() => {
     let $window = $(window);
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
     let posY = ($window.height() - $modalWin.outerHeight()) / 2;
-
 
     $modalWin
       .before($shade)
@@ -166,6 +177,7 @@ $(() => {
       })
       .then(() => {
         hideEditTaskModal();
+        initScreen();
       })
       .catch(() => {
         alert('更新に失敗しました');
@@ -185,6 +197,70 @@ $(() => {
         .addClass('hide');
     }
   }
+
+  // タスク作成モーダル表示
+  $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
+
+  function showCreateTaskModal(event) {
+    event.preventDefault();
+
+    let $shade = $('<div></div>');
+    $shade.attr('id', 'shade');
+
+    let $modalWin = $('#create-task-modal');
+    // windowはwindowオブジェクトのこと
+    let $window = $(window);
+    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
+    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
+
+    $modalWin
+      .before($shade)
+      .css({ left: posX, top: posY })
+      .removeClass('hide')
+      .addClass('show');
+
+    $('#close-task-modal').on('click', () => {
+      hideCreateTaskModal();
+    });
+
+    $('#create-task-btn').on('click', () => {
+      const todoTitle = $('#create-todo-title').val();
+      const todoDetail = $('#create-todo-detail').val();
+
+      if (!todoTitle) {
+        return alert('タイトルを入力してください');
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/tasks/create',
+        dataType: 'json',
+        data: {
+          todoTitle,
+          todoDetail,
+          userId,
+        },
+      })
+        .then((res) => {
+          $('#create-todo-title').val('');
+          $('#create-todo-detail').val('');
+          hideCreateTaskModal();
+          initScreen();
+        })
+        .catch((err) => {
+          alert('保存に失敗しました');
+          hideCreateTaskModal();
+        });
+    });
+
+    function hideCreateTaskModal() {
+      $('#shade').remove();
+      $('#create-task-modal')
+        .removeClass('show')
+        .addClass('hide');
+    }
+  }
+
 
   function showLoginModal() {
     let $shade = $('<div></div>');
@@ -269,66 +345,6 @@ $(() => {
     function hideLoginModal() {
       $('#shade').remove();
       $('#login-modal')
-        .removeClass('show')
-        .addClass('hide');
-    }
-  }
-
-  // タスク作成モーダル表示
-  $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
-
-  function showCreateTaskModal(event) {
-    event.preventDefault();
-
-    let $shade = $('<div></div>');
-    $shade.attr('id', 'shade');
-
-    let $modalWin = $('#create-task-modal');
-    // windowはwindowオブジェクトのこと
-    let $window = $(window);
-    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
-    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
-
-    $modalWin
-      .before($shade)
-      .css({left: posX, top: posY})
-      .removeClass('hide')
-      .addClass('show');
-
-    $('#close-task-modal').on('click', () => {
-      hideCreateTaskModal();
-    });
-
-    $('#create-task-btn').on('click', () => {
-      const todoTitle = $('#create-todo-title').val();
-      const todoDetail = $('#create-todo-detail').val();
-
-      if (!todoTitle) {
-        return alert('タイトルを入力してください');
-      }
-
-      $.ajax({
-        type: 'POST',
-        url: 'http://localhost:3000/api/tasks/create',
-        dataType: 'json',
-        data: {
-          todoTitle,
-          todoDetail,
-          userId,
-        },
-      })
-      .then((res) => {
-        hideCreateTaskModal();
-      })
-      .catch((err) => {
-        alert('保存に失敗しました');
-        hideCreateTaskModal();
-      });
-    });
-
-    function hideCreateTaskModal() {
-      $('#shade').remove();
-      $('#create-task-modal')
         .removeClass('show')
         .addClass('hide');
     }
