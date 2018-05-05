@@ -8,26 +8,13 @@ $(function() {
   if (!userId) {
     showLoginModal();
   } else {
-    initScreen();
+    getTasks(userId);
   }
 
-  function initScreen() {
-    $('#completed-task-list').empty();
-    $('#not-completed-task-list').empty();
-    getTasks({ userId });
-    getTasks({ userId, requestCompletedTask });
-  }
-
-  function getTasks(argumentObj) {
-    let userId = argumentObj.userId;
-    let requestCompletedTask = argumentObj.requestCompletedTask;
-    let requestDeletedTask = argumentObj.requestDeletedTask;
+  function getTasks(userId) {
     let data = {
       userId
     };
-
-    if (requestCompletedTask) data.requestCompletedTask = requestCompletedTask;
-    if (requestDeletedTask) data.requestDeletedTask = requestDeletedTask;
 
     $.ajax({
       type: 'POST',
@@ -36,6 +23,7 @@ $(function() {
       data
     })
     .then((res) => {
+      console.log(res, res.content.length);
       let taskList = res.content;
       taskList.forEach((task) => {
         let taskId = task.id;
@@ -63,7 +51,7 @@ $(function() {
         });
         $taskItemDom.append($deleteBtnDom);
 
-        if (requestCompletedTask) {
+        if (isCompleted) {
           $('#completed-task-list').append($taskItemDom);
         } else {
           $('#not-completed-task-list').append($taskItemDom);
@@ -87,7 +75,9 @@ $(function() {
       },
     })
     .then(() => {
-      initScreen();
+      $('#completed-task-list').empty();
+      $('#not-completed-task-list').empty();
+      getTasks(userId);
     });
   }
 
@@ -108,6 +98,7 @@ $(function() {
       .removeClass('hide')
       .addClass('show');
 
+    $('#delete-task-button').off('click');
     $('#delete-task-button').on('click', () => {
       $.ajax({
         type: 'POST',
@@ -119,7 +110,9 @@ $(function() {
       })
       .then(() => {
         hideConfirmDeleteTaskModal();
-        initScreen();
+        $('#completed-task-list').empty();
+        $('#not-completed-task-list').empty();
+        getTasks(userId);
       })
       .catch(() => {
         alert('通信に失敗しました');
@@ -157,6 +150,7 @@ $(function() {
     $('#edit-todo-title').val(taskTitle);
     $('#edit-todo-detail').val(taskDescription);
 
+    $('#edit-task-btn').off('click');
     $('#edit-task-btn').on('click', () => {
       let newTitle = $('#edit-todo-title').val();
       let newDetail = $('#edit-todo-detail').val();
@@ -177,7 +171,9 @@ $(function() {
       })
       .then(() => {
         hideEditTaskModal();
-        initScreen();
+        $('#completed-task-list').empty();
+        $('#not-completed-task-list').empty();
+        getTasks(userId);
       })
       .catch(() => {
         alert('更新に失敗しました');
@@ -201,9 +197,7 @@ $(function() {
   // タスク作成モーダル表示
   $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
 
-  function showCreateTaskModal(event) {
-    event.preventDefault();
-
+  function showCreateTaskModal() {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -224,8 +218,11 @@ $(function() {
     });
 
     let inProcessingFlag = false;
+    $('#create-task-btn').off('click');
     $('#create-task-btn').on('click', () => {
-      if (inProcessingFlag) return false;
+      if (inProcessingFlag) {
+        return false;
+      }
 
       inProcessingFlag = true;
 
@@ -248,10 +245,12 @@ $(function() {
         },
       })
       .then((res) => {
+        hideCreateTaskModal();
+        $('#completed-task-list').empty();
+        $('#not-completed-task-list').empty();
+        getTasks(userId);
         $('#create-todo-title').val('');
         $('#create-todo-detail').val('');
-        hideCreateTaskModal();
-        initScreen();
       })
       .catch((err) => {
         alert('保存に失敗しました');
@@ -268,7 +267,6 @@ $(function() {
         .addClass('hide');
     }
   }
-
 
   // ログイン、サインアップ用のモーダル
   // ローカルストレージにユーザーデータがないときに呼ばれる
@@ -313,7 +311,7 @@ $(function() {
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
-          getTasks({userId});
+          getTasks(userId);
         } else {
           alert('ユーザー名、パスワードが違います');
         }
