@@ -8,6 +8,8 @@ $(() => {
     showLoginModal();
   } else {
     getTasks({userId});
+    let requestCompletedTask = true;
+    getTasks({ userId, requestCompletedTask });
   }
 
   function getTasks(argumentObj) {
@@ -46,7 +48,10 @@ $(() => {
               taskId,
               isCompleted,
             },
-          });
+          })
+          .then(() => {
+            $completeBtn.parent().remove();
+          })
         });
         $taskItemDom.append($completeBtn);
 
@@ -330,8 +335,6 @@ $(() => {
   }
 
   // タブの切り替え
-  // hasGetCompletedTasksはすでにajaxで完了済みタスクを取得したかどうかのフラグ
-  let hasGetCompletedTasks = false;
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
     $('#completed-task-list').show();
@@ -343,13 +346,6 @@ $(() => {
       'border-bottom': '6px solid red',
       'color': 'black'
     });
-
-    if (!hasGetCompletedTasks) {
-      let requestCompletedTask = true;
-      getTasks({userId, requestCompletedTask});
-
-      hasGetCompletedTasks = true;
-    }
   });
 
   $('#show-not-completed-tasks').on('click', () => {
