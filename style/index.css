@@ -193,6 +193,10 @@ header {
   border-radius: 5px;
 }
 
+.task-complete-btn {
+  display: inline-block;
+}
+
 @media screen and (max-width: 600px) {
   .modalwin {
       width: 90%;

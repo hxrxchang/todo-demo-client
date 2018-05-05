@@ -36,15 +36,8 @@ $(() => {
         let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
-        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
-          showEditTaskModal(taskId, taskTitle, taskDescription);
-        });
-        $taskTitleDom.text(taskTitle);
-        $taskItemDom.append($taskTitleDom);
-
-        let $completeBtnDom = $('<button class="complete-task-btn">');
-        $completeBtnDom.text('完了');
-        $completeBtnDom.on('click', () => {
+        let $completeBtn = $('<input type="checkbox" class="task-complete-btn">');
+        $completeBtn.on('click', () => {
           $.ajax({
             type: 'POST',
             url: 'http://localhost:3000/api/tasks/complete',
@@ -55,12 +48,18 @@ $(() => {
             },
           });
         });
-        $taskItemDom.append($completeBtnDom);
+        $taskItemDom.append($completeBtn);
+
+        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
+          showEditTaskModal(taskId, taskTitle, taskDescription);
+        });
+        $taskTitleDom.text(taskTitle);
+        $taskItemDom.append($taskTitleDom);
 
         let $deleteBtnDom = $('<button class="delete-task-btn">');
         $($deleteBtnDom).text('削除');
         $deleteBtnDom.on('click', () => {
-          showConfirmDeleteTaskModal(taskId);
+          showConfirmDeleteTaskModal(taskId, $deleteBtnDom);
         });
         $taskItemDom.append($deleteBtnDom);
 
@@ -76,7 +75,7 @@ $(() => {
     });
   }
 
-  function showConfirmDeleteTaskModal(taskId) {
+  function showConfirmDeleteTaskModal(taskId, $deleteBtnDom) {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -103,6 +102,7 @@ $(() => {
       })
       .then(() => {
         hideConfirmDeleteTaskModal();
+        $deleteBtnDom.parent().remove();
       })
       .catch(() => {
         alert('通信に失敗しました');
