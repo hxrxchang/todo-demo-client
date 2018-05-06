@@ -197,6 +197,9 @@ $(function() {
   $('#open-add-memo-modal-btn').on('click', showCreateTaskModal);
 
   function showCreateTaskModal() {
+    $('#create-todo-title').val('');
+    $('#create-todo-detail').val('');
+
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -248,8 +251,6 @@ $(function() {
         $('#completed-task-list').empty();
         $('#not-completed-task-list').empty();
         getTasks(userId);
-        $('#create-todo-title').val('');
-        $('#create-todo-detail').val('');
       })
       .catch((err) => {
         alert('保存に失敗しました');
