@@ -187,7 +187,8 @@ header {
 .delete-task-btn {
   position: absolute;
   top: 20px;
-  right: 10px;
+  right: 20px;
+  font-size: 30px;
 }
 
 .task-complete-btn {
@@ -195,7 +196,7 @@ header {
   border-radius: 30px;
   height: 30px;
   width: 30px;
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 #create-memo-btn {

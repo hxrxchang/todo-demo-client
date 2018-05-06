@@ -1,7 +1,7 @@
 $(function() {
   // ページロード時の挙動
   // ローカルストレージからuserIdを取得
-  // userIdがあればログイン済み、 なければ登録モーダルを表示
+  // userIdがあればログイン済みなのでtaskを取得し、 なければ登録モーダルを表示
   let userId = localStorage.getItem('userId');
   let requestCompletedTask = true;
 
@@ -31,6 +31,7 @@ $(function() {
         let isCompleted = task.is_completed;
 
         let $taskItemDom = $('<div class="task-item">');
+
         let $completeBtn = $('<button class="task-complete-btn">');
         $completeBtn.on('click', () => {
           changeTaskStatus(taskId, isCompleted);
@@ -43,8 +44,8 @@ $(function() {
         $taskTitleDom.text(taskTitle);
         $taskItemDom.append($taskTitleDom);
 
-        let $deleteBtnDom = $('<button class="delete-task-btn">');
-        $($deleteBtnDom).text('削除');
+        // let $deleteBtnDom = $('<button class="delete-task-btn">');
+        let $deleteBtnDom = $('<i class="far fa-trash-alt delete-task-btn">')
         $deleteBtnDom.on('click', () => {
           showConfirmDeleteTaskModal(taskId, $taskItemDom);
         });
