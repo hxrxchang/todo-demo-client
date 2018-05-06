@@ -44,7 +44,6 @@ $(function() {
         $taskTitleDom.text(taskTitle);
         $taskItemDom.append($taskTitleDom);
 
-        // let $deleteBtnDom = $('<button class="delete-task-btn">');
         let $deleteBtnDom = $('<i class="far fa-trash-alt delete-task-btn">')
         $deleteBtnDom.on('click', () => {
           showConfirmDeleteTaskModal(taskId, $taskItemDom);

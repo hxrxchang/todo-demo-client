@@ -1,0 +1,26 @@
+/* スマホ用レイアウト */
+@media (max-width: 375px) {
+  body .container{
+    margin: 0;
+  }
+
+  .task-title {
+    width: 220px;
+  }
+
+  #create-todo-title {
+    width: 300px;
+  }
+
+  #create-todo-detail {
+    width: 300px;
+  }
+
+  #edit-todo-title {
+    width: 300px;
+  }
+
+  #edit-todo-detail {
+    width: 300px;
+  }
+}
