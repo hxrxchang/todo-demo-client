@@ -30,8 +30,15 @@ header {
   margin-top: 30px;
 }
 
-#main-container {
+#sorting-icon-div {
   margin-top: 30px;
+}
+
+#sorting-btn {
+  font-size: 20px;
+}
+
+#main-container {
 }
 
 .task-list {
@@ -92,23 +99,22 @@ header {
   z-index: 1;
 }
 
-#show-not-completed-tasks {
+.change-tab-btn {
   font-size: 30px;
   padding-bottom: 10px;
+}
+
+#show-not-completed-tasks {
   border-bottom: 6px solid red;
 }
 
 #show-completed-tasks {
-  font-size: 30px;
   margin-left: 20px;
-  padding-bottom: 10px;
   color: gray;
 }
 
 #show-stared-tasks {
-  font-size: 30px;
   margin-left: 20px;
-  padding-bottom: 10px;
   color: gray;
 }
 

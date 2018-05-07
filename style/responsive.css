@@ -23,4 +23,8 @@
   #edit-todo-detail {
     width: 300px;
   }
+
+  .change-tab-btn {
+    font-size: 22px;
+  }
 }
