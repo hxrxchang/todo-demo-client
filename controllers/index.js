@@ -8,8 +8,7 @@ $(function() {
   if (!userId) {
     showLoginModal();
   } else {
-    getTasks(userId, ASC_or_DESC);
-    getFavTasks(userId, ASC_or_DESC);
+    initScreen();
   }
 
   function initScreen() {
@@ -17,7 +16,7 @@ $(function() {
     $('#not-completed-task-list').empty();
     $('#stared-task-list').empty();
     getTasks(userId, ASC_or_DESC);
-    getFavTasks(userId);
+    getFavTasks(userId, ASC_or_DESC);
   }
 
   function getTasks(userId, ASC_or_DESC) {
@@ -42,9 +41,10 @@ $(function() {
     });
   }
 
-  function getFavTasks(userId) {
+  function getFavTasks(userId, ASC_or_DESC) {
     let data = {
-      userId
+      userId,
+      ASC_or_DESC
     };
 
     $.ajax({
