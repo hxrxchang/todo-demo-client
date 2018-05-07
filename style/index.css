@@ -250,8 +250,6 @@ header {
   border-radius: 5px;
 }
 
-/* @media screen and (max-width: 600px) {
-  .modalwin {
-      width: 90%;
-  }
-} */
+#alert-modal {
+  display: none;
+}
