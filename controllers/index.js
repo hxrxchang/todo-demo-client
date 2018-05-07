@@ -81,15 +81,16 @@ $(function() {
       $taskTitleDom.text(taskTitle);
       $taskItemDom.append($taskTitleDom);
 
-      let $favBtnDom = $('<i class="fas fa-star fav-task-btn">');
+      let $favBtnDom;
+      if (isStared) {
+        $favBtnDom = $('<i class="fas fa-star fav-task-btn">').css({ 'color': '#FDCE00' });
+      } else {
+        $favBtnDom = $('<i class="far fa-star fav-task-btn">');
+      }
       $favBtnDom.on('click', () => {
         addFavoriteTask(taskId);
       });
-      if (isStared) {
-        $favBtnDom.css({
-          'color': '#FDCE00',
-        });
-      }
+
       $taskItemDom.append($favBtnDom);
 
       let $deleteBtnDom = $('<i class="far fa-trash-alt delete-task-btn">')
