@@ -31,11 +31,12 @@ header {
 }
 
 #sorting-icon-div {
+  display: flex;
   margin-top: 30px;
 }
 
 #sorting-btn {
-  font-size: 20px;
+  margin: 4px 0 0 10px;
 }
 
 #main-container {

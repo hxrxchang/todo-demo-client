@@ -3,18 +3,27 @@ $(function() {
   // ローカルストレージからuserIdを取得
   // userIdがあればログイン済みなのでtaskを取得し、 なければ登録モーダルを表示
   let userId = localStorage.getItem('userId');
-  let requestCompletedTask = true;
+  let ASC_or_DESC = 'DESC';
 
   if (!userId) {
     showLoginModal();
   } else {
-    getTasks(userId);
+    getTasks(userId, ASC_or_DESC);
     getFavTasks(userId);
   }
 
-  function getTasks(userId) {
+  function initScreen() {
+    $('#completed-task-list').empty();
+    $('#not-completed-task-list').empty();
+    $('#stared-task-list').empty();
+    getTasks(userId, ASC_or_DESC);
+    getFavTasks(userId);
+  }
+
+  function getTasks(userId, ASC_or_DESC) {
     let data = {
-      userId
+      userId,
+      ASC_or_DESC
     };
 
     $.ajax({
@@ -123,11 +132,7 @@ $(function() {
       },
     })
     .then(() => {
-      $('#completed-task-list').empty();
-      $('#not-completed-task-list').empty();
-      $('#stared-task-list').empty();
-      getTasks(userId);
-      getFavTasks(userId);
+      initScreen();
     });
   }
 
@@ -141,11 +146,7 @@ $(function() {
       }
     })
     .then(() => {
-      $('#completed-task-list').empty();
-      $('#not-completed-task-list').empty();
-      $('#stared-task-list').empty();
-      getTasks(userId);
-      getFavTasks(userId);
+      initScreen();
     })
     .catch(() => {
       alert('通信に失敗しました');
@@ -180,11 +181,7 @@ $(function() {
       })
       .then(() => {
         hideConfirmDeleteTaskModal();
-        $('#completed-task-list').empty();
-        $('#not-completed-task-list').empty();
-        $('#stared-task-list').empty();
-        getTasks(userId);
-        getFavTasks(userId);
+        initScreen();
       })
       .catch(() => {
         alert('通信に失敗しました');
@@ -243,11 +240,7 @@ $(function() {
       })
       .then(() => {
         hideEditTaskModal();
-        $('#completed-task-list').empty();
-        $('#not-completed-task-list').empty();
-        $('#stared-task-list').empty();
-        getTasks(userId);
-        getFavTasks(userId);
+        initScreen();
       })
       .catch(() => {
         alert('更新に失敗しました');
@@ -323,11 +316,7 @@ $(function() {
       })
       .then((res) => {
         hideCreateTaskModal();
-        $('#completed-task-list').empty();
-        $('#not-completed-task-list').empty();
-        $('#stared-task-list').empty();
-        getTasks(userId);
-        getFavTasks(userId);
+        initScreen();
       })
       .catch((err) => {
         alert('保存に失敗しました');
@@ -388,7 +377,7 @@ $(function() {
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
-          getTasks(userId);
+          getTasks(userId, ASC_or_DESC);
           alert('ログインに成功しました');
         } else {
           alert('ユーザー名、パスワードが違います');
@@ -489,5 +478,17 @@ $(function() {
       'border-bottom': '6px solid red',
       'color': 'black'
     });
+  });
+
+  $('#sorting-btn').on('click', () => {
+    if (ASC_or_DESC === 'ASC') {
+      ASC_or_DESC = 'DESC';
+      initScreen();
+      $('#sorting-icon').text('新しい順に並べ替える');
+    } else if (ASC_or_DESC === 'DESC') {
+      ASC_or_DESC = 'ASC';
+      initScreen();
+      $('#sorting-icon').text('古い順に並べ替える');
+    }
   });
 });
