@@ -312,6 +312,7 @@ $(function() {
 
           hideLoginModal();
           getTasks(userId);
+          alert('ログインに成功しました');
         } else {
           alert('ユーザー名、パスワードが違います');
         }
@@ -343,6 +344,7 @@ $(function() {
         localStorage.setItem('userId', userId);
 
         hideLoginModal();
+        alert('登録に成功しました');
       })
       .catch(() => {
         alert('通信に失敗しました');
