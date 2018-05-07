@@ -9,7 +9,7 @@ $(function() {
     showLoginModal();
   } else {
     getTasks(userId, ASC_or_DESC);
-    getFavTasks(userId);
+    getFavTasks(userId, ASC_or_DESC);
   }
 
   function initScreen() {
