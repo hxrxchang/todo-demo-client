@@ -9,6 +9,7 @@ $(function() {
     showLoginModal();
   } else {
     getTasks(userId);
+    getFavTasks(userId);
   }
 
   function getTasks(userId) {
@@ -24,41 +25,88 @@ $(function() {
     })
     .then((res) => {
       let taskList = res.content;
-      taskList.forEach((task) => {
-        let taskId = task.id;
-        let taskTitle = task.title;
-        let taskDescription = task.description;
-        let isCompleted = task.is_completed;
-
-        let $taskItemDom = $('<div class="task-item">');
-
-        let $completeBtn = $('<button class="task-complete-btn">');
-        $completeBtn.on('click', () => {
-          changeTaskStatus(taskId, isCompleted);
-        });
-        $taskItemDom.append($completeBtn);
-
-        let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
-          showEditTaskModal(taskId, taskTitle, taskDescription);
-        });
-        $taskTitleDom.text(taskTitle);
-        $taskItemDom.append($taskTitleDom);
-
-        let $deleteBtnDom = $('<i class="far fa-trash-alt delete-task-btn">')
-        $deleteBtnDom.on('click', () => {
-          showConfirmDeleteTaskModal(taskId, $taskItemDom);
-        });
-        $taskItemDom.append($deleteBtnDom);
-
-        if (isCompleted) {
-          $('#completed-task-list').append($taskItemDom);
-        } else {
-          $('#not-completed-task-list').append($taskItemDom);
-        }
-      });
+      let whereToRender = false;
+      renderDom(taskList, whereToRender);
     })
     .catch((err) => {
       alert('サーバーが応答しません');
+    });
+  }
+
+  function getFavTasks(userId) {
+    let data = {
+      userId
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/api/tasks/star/get',
+      dataType: 'json',
+      data
+    })
+    .then((res) => {
+      let taskList = res.content;
+      let whereToRender = $('#stared-task-list');
+      renderDom(taskList, whereToRender);
+    })
+    .catch((err) => {
+      alert('通信に失敗しました');
+    })
+  }
+
+  function renderDom(taskList, whereToRender) {
+    let isRequestStaredTask = false;
+    if (whereToRender) isRequestStaredTask = true;
+
+    taskList.forEach((task) => {
+      let taskId = task.id;
+      let taskTitle = task.title;
+      let taskDescription = task.description;
+      let isCompleted = task.is_completed;
+      let isStared = task.is_stared;
+
+      let $taskItemDom = $('<div class="task-item">');
+
+      let $completeBtn = $('<button class="task-complete-btn">');
+      if (!isRequestStaredTask) {
+        $completeBtn.on('click', () => {
+          changeTaskStatus(taskId, isCompleted);
+        });
+      }
+      $taskItemDom.append($completeBtn);
+
+      let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
+        showEditTaskModal(taskId, taskTitle, taskDescription);
+      });
+      $taskTitleDom.text(taskTitle);
+      $taskItemDom.append($taskTitleDom);
+
+      let $favBtnDom = $('<i class="fas fa-star fav-task-btn">');
+      $favBtnDom.on('click', () => {
+        addFavoriteTask(taskId);
+      });
+      if (isStared) {
+        $favBtnDom.css({
+          'color': '#FDCE00',
+        });
+      }
+      $taskItemDom.append($favBtnDom);
+
+      let $deleteBtnDom = $('<i class="far fa-trash-alt delete-task-btn">')
+      $deleteBtnDom.on('click', () => {
+        showConfirmDeleteTaskModal(taskId, $taskItemDom);
+      });
+      $taskItemDom.append($deleteBtnDom);
+
+      if (isRequestStaredTask) {
+        return whereToRender.append($taskItemDom);
+      }
+
+      if (isCompleted) {
+        $('#completed-task-list').append($taskItemDom);
+      } else {
+        $('#not-completed-task-list').append($taskItemDom);
+      }
     });
   }
 
@@ -76,7 +124,30 @@ $(function() {
     .then(() => {
       $('#completed-task-list').empty();
       $('#not-completed-task-list').empty();
+      $('#stared-task-list').empty();
       getTasks(userId);
+      getFavTasks(userId);
+    });
+  }
+
+  function addFavoriteTask(taskId) {
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/api/tasks/star',
+      dataType: 'json',
+      data: {
+        taskId,
+      }
+    })
+    .then(() => {
+      $('#completed-task-list').empty();
+      $('#not-completed-task-list').empty();
+      $('#stared-task-list').empty();
+      getTasks(userId);
+      getFavTasks(userId);
+    })
+    .catch(() => {
+      alert('通信に失敗しました');
     });
   }
 
@@ -89,7 +160,6 @@ $(function() {
     let $window = $(window);
     let posX = ($window.width() - $modalWin.outerWidth()) / 2;
     let posY = ($window.height() - $modalWin.outerHeight()) / 2;
-
 
     $modalWin
       .before($shade)
@@ -111,7 +181,9 @@ $(function() {
         hideConfirmDeleteTaskModal();
         $('#completed-task-list').empty();
         $('#not-completed-task-list').empty();
+        $('#stared-task-list').empty();
         getTasks(userId);
+        getFavTasks(userId);
       })
       .catch(() => {
         alert('通信に失敗しました');
@@ -172,7 +244,9 @@ $(function() {
         hideEditTaskModal();
         $('#completed-task-list').empty();
         $('#not-completed-task-list').empty();
+        $('#stared-task-list').empty();
         getTasks(userId);
+        getFavTasks(userId);
       })
       .catch(() => {
         alert('更新に失敗しました');
@@ -250,7 +324,9 @@ $(function() {
         hideCreateTaskModal();
         $('#completed-task-list').empty();
         $('#not-completed-task-list').empty();
+        $('#stared-task-list').empty();
         getTasks(userId);
+        getFavTasks(userId);
       })
       .catch((err) => {
         alert('保存に失敗しました');
@@ -362,8 +438,13 @@ $(function() {
   // タブの切り替え
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
+    $('#stared-task-list').hide();
     $('#completed-task-list').show();
     $('#show-not-completed-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
+    $('#show-stared-tasks').css({
       'border-bottom': 'none',
       'color': 'gray'
     });
@@ -375,12 +456,35 @@ $(function() {
 
   $('#show-not-completed-tasks').on('click', () => {
     $('#completed-task-list').hide();
+    $('#stared-task-list').hide();
     $('#not-completed-task-list').show();
     $('#show-completed-tasks').css({
       'border-bottom': 'none',
       'color': 'gray'
     });
+    $('#show-stared-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
     $('#show-not-completed-tasks').css({
+      'border-bottom': '6px solid red',
+      'color': 'black'
+    });
+  });
+
+  $('#show-stared-tasks').on('click', () => {
+    $('#completed-task-list').hide();
+    $('#not-completed-task-list').hide();
+    $('#stared-task-list').show();
+    $('#show-completed-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
+    $('#show-not-completed-tasks').css({
+      'border-bottom': 'none',
+      'color': 'gray'
+    });
+    $('#show-stared-tasks').css({
       'border-bottom': '6px solid red',
       'color': 'black'
     });

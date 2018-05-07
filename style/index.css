@@ -105,7 +105,18 @@ header {
   color: gray;
 }
 
+#show-stared-tasks {
+  font-size: 30px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+  color: gray;
+}
+
 #completed-task-list {
+  display: none;
+}
+
+#stared-task-list {
   display: none;
 }
 
@@ -197,6 +208,13 @@ header {
   font-size: 30px;
 }
 
+.fav-task-btn {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  font-size: 30px;
+}
+
 .task-complete-btn {
   border: 1px solid rgb(148, 145, 145);
   border-radius: 30px;
@@ -225,8 +243,8 @@ header {
   border-radius: 5px;
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .modalwin {
       width: 90%;
   }
-}
+} */
