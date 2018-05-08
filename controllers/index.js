@@ -247,6 +247,12 @@ $(function() {
       let newTitle = $('#edit-todo-title').val();
       let newDetail = $('#edit-todo-detail').val();
       let newDeadline = $('#edit-todo-deadline').val();
+      let data = {
+        taskId,
+        newTitle,
+        newDetail,
+        newDeadline
+      };
 
       if (!newTitle) {
         return showModalAlert('タイトルは必須です');
@@ -256,12 +262,7 @@ $(function() {
         type: 'POST',
         url: 'http://localhost:3000/api/tasks/edit',
         dataType: 'json',
-        data: {
-          taskId,
-          newTitle,
-          newDetail,
-          newDeadline
-        }
+        data
       })
       .then(() => {
         hideEditTaskModal();
