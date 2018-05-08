@@ -120,6 +120,8 @@ $(function() {
       });
       $taskItemDom.append($deleteBtnDom);
 
+      $('.added-date').text(createdDate);
+
       if (isRequestStaredTask) {
         return whereToRender.append($taskItemDom);
       }

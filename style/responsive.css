@@ -37,4 +37,15 @@
   #modal-alert {
     text-align: center;
   }
+
+  .added-date-title {
+    position: absolute;
+    left: 146px;
+  }
+
+  .added-date {
+    position: absolute;
+    left: 190px;
+    margin-left: 20px;
+  }
 }

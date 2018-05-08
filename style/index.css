@@ -211,6 +211,26 @@ header {
   border-radius: 10px;
 }
 
+#added-date-group {
+  position: relative;
+  margin: 10px 0;
+}
+
+.added-date-title {
+  position: absolute;
+  left: 97px;
+}
+
+.added-date {
+  position: absolute;
+  left: 150px;
+  margin-left: 20px;
+}
+
+#edit-task-btn {
+  margin-top: 20px;
+}
+
 .task-btn {
   margin: 20px 0;
   height: 30px;
