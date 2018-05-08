@@ -10,6 +10,7 @@ $(function() {
     showLoginModal();
   } else {
     initScreen();
+    $('#not-completed-task-list').fadeIn(500);
   }
 
   function initScreen() {
@@ -450,7 +451,7 @@ $(function() {
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
     $('#stared-task-list').hide();
-    $('#completed-task-list').show();
+    $('#completed-task-list').fadeIn(500);
     $('#show-not-completed-tasks').removeClass('is_selected');
     $('#show-stared-tasks').removeClass('is_selected');
     $('#show-completed-tasks').addClass('is_selected');
@@ -459,7 +460,7 @@ $(function() {
   $('#show-not-completed-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#stared-task-list').hide();
-    $('#not-completed-task-list').show();
+    $('#not-completed-task-list').fadeIn(500);
     $('#show-completed-tasks').removeClass('is_selected');
     $('#show-stared-tasks').removeClass('is_selected');
     $('#show-not-completed-tasks').addClass('is_selected');
@@ -468,7 +469,7 @@ $(function() {
   $('#show-stared-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#not-completed-task-list').hide();
-    $('#stared-task-list').show();
+    $('#stared-task-list').fadeIn(500);
     $('#show-completed-tasks').removeClass('is_selected');
     $('#show-not-completed-tasks').removeClass('is_selected');
     $('#show-stared-tasks').addClass('is_selected');

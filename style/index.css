@@ -153,6 +153,10 @@ body .container{
   border-bottom: 6px solid red;
 }
 
+#not-completed-task-list {
+  display: none;
+}
+
 #completed-task-list {
   display: none;
 }
