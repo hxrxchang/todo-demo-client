@@ -10,7 +10,7 @@ $(function() {
     showLoginModal();
   } else {
     initScreen();
-    $('#not-completed-task-list').fadeIn(500);
+    // $('#not-completed-task-list').fadeIn(500);
   }
 
   function initScreen() {
@@ -19,6 +19,7 @@ $(function() {
     $('#stared-task-list').empty();
     getTasks({userId, ASC_or_DESC, requestDeadline});
     getFavTasks({userId, ASC_or_DESC, requestDeadline});
+    $('#main-container').fadeIn(500);
   }
 
   function getTasks(argument) {
