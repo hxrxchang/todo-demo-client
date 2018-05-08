@@ -11,18 +11,25 @@
   <title>ToDo()</title>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1 class="header-title">ToDo</h1>
+  <div id="header">
+    <div id="header-contents">
+      <h1 id="header-title">ToDo</h1>
       <button id="open-add-memo-modal-btn">+</button>
-    </header>
+    </div>
+  </div>
+  <div class="container">
     <div id="change-tab-btn-group">
       <a href="javascript:void(0);" class="change-tab-btn is_selected" id="show-not-completed-tasks">未完了</a>
       <a href="javascript:void(0);" class="change-tab-btn" id="show-completed-tasks">完了済み</a>
       <a href="javascript:void(0);" class="change-tab-btn" id="show-stared-tasks">お気に入り</a>
       <div id="sorting-icon-div">
-        <span id="sorting-icon">古い順に並べ替える</span>
-        <i class="fas fa-sync-alt" id="sorting-btn"></i>
+        <select id="sort-way-select">
+          <option id="sort-by-deadline">期限が近い順に並べ替える</option>
+          <option id="sort-by-create-desc">作成日が新しい順に並べ替える</option>
+          <option id="sort-by-create-asc">作成日が古い順に並べ替える</option>
+        </select>
+        <!-- <span id="sorting-icon">古い順に並べ替える</span>
+        <i class="fas fa-sync-alt" id="sorting-btn"></i> -->
       </div>
     </div>
     <div id="main-container">
