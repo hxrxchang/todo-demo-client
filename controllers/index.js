@@ -463,9 +463,7 @@ $(function() {
     let $modalWin = $('#modal-alert');
     let $window = $(window);
 
-    $modalWin
-      .removeClass('hide')
-      .addClass('show');
+    $modalWin.fadeIn(100);
 
     $('#modal-alert-contents').text(message);
 
@@ -475,12 +473,10 @@ $(function() {
 
     setTimeout(() => {
       closeAlert();
-    }, 3000);
+    }, 2000);
 
     function closeAlert() {
-      $('#modal-alert')
-        .removeClass('show')
-        .addClass('hide');
+      $('#modal-alert').fadeOut(200);
     }
   }
 });
