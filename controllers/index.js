@@ -37,7 +37,7 @@ $(function() {
       renderDom(taskList, whereToRender);
     })
     .catch((err) => {
-      alert('サーバーが応答しません');
+      showModalAlert('サーバーが応答しません');
     });
   }
 
@@ -59,7 +59,7 @@ $(function() {
       renderDom(taskList, whereToRender);
     })
     .catch((err) => {
-      alert('通信に失敗しました');
+      showModalAlert('通信に失敗しました');
     })
   }
 
@@ -149,7 +149,7 @@ $(function() {
       initScreen();
     })
     .catch(() => {
-      alert('通信に失敗しました');
+      showModalAlert('通信に失敗しました');
     });
   }
 
@@ -184,7 +184,7 @@ $(function() {
         initScreen();
       })
       .catch(() => {
-        alert('通信に失敗しました');
+        showModalAlert('通信に失敗しました');
       });
     });
 
@@ -225,7 +225,7 @@ $(function() {
       let newDetail = $('#edit-todo-detail').val();
 
       if (!newTitle) {
-        return alert('タイトルは必須です');
+        return showModalAlert('タイトルは必須です');
       }
 
       $.ajax({
@@ -243,7 +243,7 @@ $(function() {
         initScreen();
       })
       .catch(() => {
-        alert('更新に失敗しました');
+        showModalAlert('更新に失敗しました');
         hideEditTaskModal();
       });
     });
@@ -301,7 +301,7 @@ $(function() {
 
       if (!todoTitle) {
         inProcessingFlag = false;
-        return alert('タイトルを入力してください');
+        return showModalAlert('タイトルを入力してください');
       }
 
       $.ajax({
@@ -319,7 +319,7 @@ $(function() {
         initScreen();
       })
       .catch((err) => {
-        alert('保存に失敗しました');
+        showModalAlert('保存に失敗しました');
         hideCreateTaskModal();
       });
 
@@ -359,7 +359,7 @@ $(function() {
       password = $('#user-password').val();
 
       if (!(userName && password)) {
-        return alert('ユーザーネームとパスワードを入力してください');
+        return showModalAlert('ユーザーネームとパスワードを入力してください');
       }
 
       $.ajax({
@@ -378,13 +378,13 @@ $(function() {
 
           hideLoginModal();
           getTasks(userId, ASC_or_DESC);
-          alert('ログインに成功しました');
+          showModalAlert('ログインに成功しました');
         } else {
-          alert('ユーザー名、パスワードが違います');
+          showModalAlert('ユーザー名、パスワードが違います');
         }
       })
       .catch((err) => {
-        alert('通信に失敗しました');
+        showModalAlert('通信に失敗しました');
       });
     });
 
@@ -393,7 +393,7 @@ $(function() {
       password = $('#user-password').val();
 
       if (!(userName && password)) {
-        return alert('ユーザーネームとパスワードを入力してください');
+        return showModalAlert('ユーザーネームとパスワードを入力してください');
       }
 
       $.ajax({
@@ -410,10 +410,10 @@ $(function() {
         localStorage.setItem('userId', userId);
 
         hideLoginModal();
-        alert('登録に成功しました');
+        showModalAlert('登録に成功しました');
       })
       .catch(() => {
-        alert('通信に失敗しました');
+        showModalAlert('通信に失敗しました');
       });
     });
 
@@ -491,4 +491,29 @@ $(function() {
       $('#sorting-icon').text('古い順に並べ替える');
     }
   });
+
+  function showModalAlert(message) {
+    let $modalWin = $('#modal-alert');
+    let $window = $(window);
+
+    $modalWin
+      .removeClass('hide')
+      .addClass('show');
+
+    $('#modal-alert-contents').text(message);
+
+    $('#close-modal-alert').on('click', () => {
+      closeAlert();
+    });
+
+    setTimeout(() => {
+      closeAlert();
+    }, 3000);
+
+    function closeAlert() {
+      $('#modal-alert')
+        .removeClass('show')
+        .addClass('hide');
+    }
+  }
 });

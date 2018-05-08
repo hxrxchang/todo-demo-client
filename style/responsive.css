@@ -29,4 +29,8 @@
   .change-tab-btn {
     font-size: 22px;
   }
+
+  #modal-alert {
+    text-align: center;
+  }
 }
