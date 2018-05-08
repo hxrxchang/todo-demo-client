@@ -26,6 +26,10 @@
     width: 300px;
   }
 
+  .todo-deadline {
+    width: 300px;
+  }
+
   .change-tab-btn {
     font-size: 22px;
   }

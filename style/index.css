@@ -194,6 +194,14 @@ header {
   padding: 10px;
 }
 
+.todo-deadline {
+  margin-top: 20px;
+  font-size: 18px;
+  width: 400px;
+  border: 2px solid rgb(224, 220, 220);
+  border-radius: 10px;
+}
+
 .task-btn {
   margin: 20px 0;
   height: 30px;
