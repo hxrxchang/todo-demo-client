@@ -166,8 +166,7 @@ $(function() {
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
-      .removeClass('hide')
-      .addClass('show');
+      .fadeIn(500);
 
     $('#delete-task-button').off('click');
     $('#delete-task-button').on('click', () => {
@@ -193,10 +192,9 @@ $(function() {
     });
 
     function hideConfirmDeleteTaskModal() {
-      $('#shade').remove();
-      $('#confirm-delete-task-modal')
-        .removeClass('show')
-        .addClass('hide');
+      $('#confirm-delete-task-modal').fadeOut(200, () => {
+        $('#shade').remove();
+      });
     }
   }
 
@@ -213,8 +211,7 @@ $(function() {
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
-      .removeClass('hide')
-      .addClass('show');
+      .fadeIn(500);
 
     $('#edit-todo-title').val(taskTitle);
     $('#edit-todo-detail').val(taskDescription);
@@ -254,10 +251,9 @@ $(function() {
     });
 
     function hideEditTaskModal() {
-      $('#shade').remove();
-      $('#edit-task-modal')
-        .removeClass('show')
-        .addClass('hide');
+      $('#edit-task-modal').fadeOut(200, () => {
+        $('#shade').remove();
+      });
     }
   }
 
@@ -280,8 +276,7 @@ $(function() {
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
-      .removeClass('hide')
-      .addClass('show');
+      .fadeIn(500);
 
     $('#close-task-modal').on('click', () => {
       hideCreateTaskModal();
@@ -327,10 +322,9 @@ $(function() {
     });
 
     function hideCreateTaskModal() {
-      $('#shade').remove();
-      $('#create-task-modal')
-        .removeClass('show')
-        .addClass('hide');
+      $('#create-task-modal').fadeOut(500, () => {
+        $('#shade').remove();
+      });
     }
   }
 
@@ -348,8 +342,9 @@ $(function() {
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
-      .removeClass('hide')
-      .addClass('show');
+      .fadeIn(300);
+      // .removeClass('hide')
+      // .addClass('show');
 
     let userName;
     let password;
@@ -418,10 +413,9 @@ $(function() {
     });
 
     function hideLoginModal() {
-      $('#shade').remove();
-      $('#login-modal')
-        .removeClass('show')
-        .addClass('hide');
+      $('#login-modal').fadeOut(500, () => {
+        $('#shade').remove();
+      });
     }
   }
 
