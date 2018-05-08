@@ -430,54 +430,27 @@ $(function() {
     $('#not-completed-task-list').hide();
     $('#stared-task-list').hide();
     $('#completed-task-list').show();
-    $('#show-not-completed-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-stared-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-completed-tasks').css({
-      'border-bottom': '6px solid red',
-      'color': 'black'
-    });
+    $('#show-not-completed-tasks').removeClass('is_selected');
+    $('#show-stared-tasks').removeClass('is_selected');
+    $('#show-completed-tasks').addClass('is_selected');
   });
 
   $('#show-not-completed-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#stared-task-list').hide();
     $('#not-completed-task-list').show();
-    $('#show-completed-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-stared-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-not-completed-tasks').css({
-      'border-bottom': '6px solid red',
-      'color': 'black'
-    });
+    $('#show-completed-tasks').removeClass('is_selected');
+    $('#show-stared-tasks').removeClass('is_selected');
+    $('#show-not-completed-tasks').addClass('is_selected');
   });
 
   $('#show-stared-tasks').on('click', () => {
     $('#completed-task-list').hide();
     $('#not-completed-task-list').hide();
     $('#stared-task-list').show();
-    $('#show-completed-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-not-completed-tasks').css({
-      'border-bottom': 'none',
-      'color': 'gray'
-    });
-    $('#show-stared-tasks').css({
-      'border-bottom': '6px solid red',
-      'color': 'black'
-    });
+    $('#show-completed-tasks').removeClass('is_selected');
+    $('#show-not-completed-tasks').removeClass('is_selected');
+    $('#show-stared-tasks').addClass('is_selected');
   });
 
   $('#sorting-btn').on('click', () => {

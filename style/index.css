@@ -27,10 +27,6 @@ header {
   border: 1px solid rgb(148, 145, 145);
 }
 
-#change-tab-btn-group {
-  margin-top: 30px;
-}
-
 #sorting-icon-div {
   display: flex;
   margin-top: 30px;
@@ -98,23 +94,40 @@ header {
   z-index: 1;
 }
 
+#change-tab-btn-group {
+  margin-top: 30px;
+}
+
 .change-tab-btn {
   font-size: 30px;
   padding-bottom: 10px;
+  color: gray;
+  border-bottom: none;
 }
 
-#show-not-completed-tasks {
-  border-bottom: 6px solid red;
+#show-not-completed-tasks:hover {
+  color: black;
 }
 
 #show-completed-tasks {
   margin-left: 20px;
-  color: gray;
+}
+
+#show-completed-tasks:hover {
+  color: black;
 }
 
 #show-stared-tasks {
   margin-left: 20px;
-  color: gray;
+}
+
+#show-stared-tasks:hover {
+  color: black;
+}
+
+.is_selected {
+  color: black;
+  border-bottom: 6px solid red;
 }
 
 #completed-task-list {
