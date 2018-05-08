@@ -73,6 +73,9 @@ $(function() {
       let taskDescription = task.description;
       let isCompleted = task.is_completed;
       let isStared = task.is_stared;
+      let deadline = task.deadline;
+      if (deadline) deadline = new Date(deadline);
+      console.log(deadline);
 
       let $taskItemDom = $('<div class="task-item">');
 
@@ -85,7 +88,7 @@ $(function() {
       $taskItemDom.append($completeBtn);
 
       let $taskTitleDom = $('<a class="task-title" href="javascript:void(0);">').on('click', () => {
-        showEditTaskModal(taskId, taskTitle, taskDescription);
+        showEditTaskModal(taskId, taskTitle, taskDescription, deadline);
       });
       $taskTitleDom.text(taskTitle);
       $taskItemDom.append($taskTitleDom);
@@ -199,7 +202,7 @@ $(function() {
   }
 
   // タスクの閲覧編集用モーダル表示して、タスクのデータをアップデートする
-  function showEditTaskModal(taskId, taskTitle, taskDescription) {
+  function showEditTaskModal(taskId, taskTitle, taskDescription, deadline) {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
 
@@ -215,11 +218,13 @@ $(function() {
 
     $('#edit-todo-title').val(taskTitle);
     $('#edit-todo-detail').val(taskDescription);
+    $('#edit-todo-deadline').val(deadline);
 
     $('#edit-task-btn').off('click');
     $('#edit-task-btn').on('click', () => {
       let newTitle = $('#edit-todo-title').val();
       let newDetail = $('#edit-todo-detail').val();
+      let newDeadline = $('#edit-todo-deadline').val();
 
       if (!newTitle) {
         return showModalAlert('タイトルは必須です');
@@ -232,7 +237,8 @@ $(function() {
         data: {
           taskId,
           newTitle,
-          newDetail
+          newDetail,
+          newDeadline
         }
       })
       .then(() => {
@@ -293,6 +299,7 @@ $(function() {
 
       const todoTitle = $('#create-todo-title').val();
       const todoDetail = $('#create-todo-detail').val();
+      const todoDeadline = $('#create-todo-deadline').val();
 
       if (!todoTitle) {
         inProcessingFlag = false;
@@ -307,6 +314,7 @@ $(function() {
           todoTitle,
           todoDetail,
           userId,
+          todoDeadline,
         },
       })
       .then((res) => {
@@ -343,8 +351,6 @@ $(function() {
       .before($shade)
       .css({ left: posX, top: posY })
       .fadeIn(300);
-      // .removeClass('hide')
-      // .addClass('show');
 
     let userName;
     let password;
