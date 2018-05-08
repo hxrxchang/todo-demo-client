@@ -232,6 +232,11 @@ header {
   top: 20px;
   right: 20px;
   font-size: 30px;
+  color: rgb(148, 145, 145);
+}
+
+.delete-task-btn:hover {
+  color: black;
 }
 
 .fav-task-btn {
@@ -239,6 +244,10 @@ header {
   top: 20px;
   right: 70px;
   font-size: 30px;
+}
+
+.fav-task-btn:hover {
+  color: #FDCE00;
 }
 
 .task-complete-btn {
