@@ -246,7 +246,11 @@ header {
   font-size: 30px;
 }
 
-.fav-task-btn:hover {
+.fav-task-btn-stared {
+  color: rgb(148, 145, 145);
+}
+
+.fav-task-btn-stared:hover {
   color: #FDCE00;
 }
 
