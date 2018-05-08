@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hxrxchang/todo-demo-client/issues"
   },
-  "homepage": "https://github.com/hxrxchang/todo-demo-client#readme"
+  "homepage": "https://github.com/hxrxchang/todo-demo-client#readme",
+  "dependencies": {
+    "moment": "^2.22.1"
+  }
 }
