@@ -54,4 +54,10 @@
     left: 190px;
     margin-left: 20px;
   }
+
+  #logout-group {
+    position: absolute;
+    right: 10px;
+    top: 0;
+  }
 }

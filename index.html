@@ -29,8 +29,10 @@
           <option value="sort-by-create-desc">作成日が新しい順に並べ替える</option>
           <option value="sort-by-create-asc">作成日が古い順に並べ替える</option>
         </select>
-        <!-- <span id="sorting-icon">古い順に並べ替える</span>
-        <i class="fas fa-sync-alt" id="sorting-btn"></i> -->
+        <div id="logout-group">
+          <i class="fas fa-sign-out-alt"></i>
+          <a href="javascript:void(0);">ログアウト</a>
+        </div>
       </div>
     </div>
     <div id="main-container">
@@ -53,6 +55,15 @@
           <button id="login">login</button>
           <button id="sign-up">sign up</button>
         </div>
+      </div>
+    </div>
+
+    <!-- ログアウトモーダル -->
+    <div id="logout-modal" class="modalwin hide">
+      <h1>ログアウトします。よろしいですか？</h1>
+      <div class="modalwin-contents">
+        <button id="logout-button">はい</button>
+        <button id="not-logout-button">いいえ</button>
       </div>
     </div>
 

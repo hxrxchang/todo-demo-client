@@ -6,14 +6,10 @@ $(function() {
   let ASC_or_DESC = 'DESC';
   let requestDeadline = false;
 
-  firstFunction();
-
-  function firstFunction() {
-    if (!userId) {
-      showLoginModal();
-    } else {
-      initScreen();
-    }
+  if (!userId) {
+    showLoginModal();
+  } else {
+    initScreen();
   }
 
   function initScreen() {
@@ -375,7 +371,8 @@ $(function() {
     $modalWin
       .before($shade)
       .css({ left: posX, top: posY })
-      .fadeIn(300);
+      .fadeIn(300)
+      .addClass('show');
 
     let userName;
     let password;
@@ -403,7 +400,7 @@ $(function() {
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
-          getTasks(userId, ASC_or_DESC);
+          initScreen();
           showModalAlert('ログインに成功しました');
         } else {
           showModalAlert('ユーザー名、パスワードが違います');
@@ -444,9 +441,8 @@ $(function() {
     });
 
     function hideLoginModal() {
-      $('#login-modal').fadeOut(500, () => {
-        $('#shade').remove();
-      });
+      $('#shade').remove();
+      $('#login-modal').css({'display': 'none'});
     }
   }
 
@@ -516,6 +512,44 @@ $(function() {
     if (sortType === 'sort-by-create-asc') {
       ASC_or_DESC = 'ASC';
       initScreen();
+    }
+  });
+
+  $('#logout-group').on('click', () => {
+    let $shade = $('<div></div>');
+    $shade.attr('id', 'shade');
+
+    let $modalWin = $('#logout-modal');
+    let $window = $(window);
+    let posX = ($window.width() - $modalWin.outerWidth()) / 2;
+    let posY = ($window.height() - $modalWin.outerHeight()) / 2;
+
+    $modalWin
+      .before($shade)
+      .css({ left: posX, top: posY })
+      .fadeIn(500);
+
+    $('#logout-button').off('click');
+    $('#logout-button').on('click', () => {
+      localStorage.removeItem('userId');
+      $('#completed-task-list').empty();
+      $('#not-completed-task-list').empty();
+      $('#stared-task-list').empty();
+      hideLogoutModal();
+
+      setTimeout(() => {
+        showLoginModal();
+      }, 1000);
+    });
+
+    $('#not-logout-button').on('click', () => {
+      hideLogoutModal();
+    });
+
+    function hideLogoutModal() {
+      $('#logout-modal').fadeOut(200, () => {
+        $('#shade').remove();
+      });
     }
   });
 });
