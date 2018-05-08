@@ -4,25 +4,34 @@ $(function() {
   // userIdがあればログイン済みなのでtaskを取得し、 なければ登録モーダルを表示
   let userId = localStorage.getItem('userId');
   let ASC_or_DESC = 'DESC';
+  let requestDeadline = false;
 
-  if (!userId) {
-    showLoginModal();
-  } else {
-    initScreen();
+  firstFunction();
+
+  function firstFunction() {
+    if (!userId) {
+      showLoginModal();
+    } else {
+      initScreen();
+    }
   }
 
   function initScreen() {
     $('#completed-task-list').empty();
     $('#not-completed-task-list').empty();
     $('#stared-task-list').empty();
-    getTasks(userId, ASC_or_DESC);
-    getFavTasks(userId, ASC_or_DESC);
+    getTasks({userId, ASC_or_DESC, requestDeadline});
+    getFavTasks({userId, ASC_or_DESC, requestDeadline});
   }
 
-  function getTasks(userId, ASC_or_DESC) {
+  function getTasks(argument) {
+    let userId = argument.userId;
+    let ASC_or_DESC = argument.ASC_or_DESC;
+    let requestDeadline = argument.requestDeadline;
     let data = {
       userId,
-      ASC_or_DESC
+      ASC_or_DESC,
+      requestDeadline,
     };
 
     $.ajax({
@@ -41,10 +50,14 @@ $(function() {
     });
   }
 
-  function getFavTasks(userId, ASC_or_DESC) {
+  function getFavTasks(argument) {
+    let userId = argument.userId;
+    let ASC_or_DESC = argument.ASC_or_DESC;
+    let requestDeadline = argument.requestDeadline;
     let data = {
       userId,
-      ASC_or_DESC
+      ASC_or_DESC,
+      requestDeadline
     };
 
     $.ajax({
@@ -465,18 +478,6 @@ $(function() {
     $('#show-stared-tasks').addClass('is_selected');
   });
 
-  $('#sorting-btn').on('click', () => {
-    if (ASC_or_DESC === 'ASC') {
-      ASC_or_DESC = 'DESC';
-      initScreen();
-      $('#sorting-icon').text('新しい順に並べ替える');
-    } else if (ASC_or_DESC === 'DESC') {
-      ASC_or_DESC = 'ASC';
-      initScreen();
-      $('#sorting-icon').text('古い順に並べ替える');
-    }
-  });
-
   function showModalAlert(message) {
     let $modalWin = $('#modal-alert');
     let $window = $(window);
@@ -497,4 +498,24 @@ $(function() {
       $('#modal-alert').fadeOut(200);
     }
   }
+
+  $('#sort-way-select').on('change', () => {
+    let sortType = $('#sort-way-select').val();
+
+    if (sortType === 'sort-by-deadline') {
+      requestDeadline = true;
+      initScreen();
+      requestDeadline = false;
+    }
+
+    if (sortType === 'sort-by-create-desc') {
+      ASC_or_DESC = 'DESC';
+      initScreen();
+    }
+
+    if (sortType === 'sort-by-create-asc') {
+      ASC_or_DESC = 'ASC';
+      initScreen();
+    }
+  });
 });
