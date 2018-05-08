@@ -85,6 +85,7 @@ $(function() {
       createdDate = moment(createdDate).format();
       let splitedCreatedDate = createdDate.split('T');
       createdDate = splitedCreatedDate[0];
+      createdDate = moment(createdDate).format('YYYY年MM月DD日');
 
       let $taskItemDom = $('<div class="task-item">');
 
