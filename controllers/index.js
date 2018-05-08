@@ -74,8 +74,17 @@ $(function() {
       let isCompleted = task.is_completed;
       let isStared = task.is_stared;
       let deadline = task.deadline;
-      if (deadline) deadline = new Date(deadline);
-      console.log(deadline);
+      let createdDate = task.created_at;
+
+      if (deadline) {
+        deadline = moment(deadline).format();
+        let splitedDeadline = deadline.split('+');
+        deadline = splitedDeadline[0];
+      }
+
+      createdDate = moment(createdDate).format();
+      let splitedCreatedDate = createdDate.split('T');
+      createdDate = splitedCreatedDate[0];
 
       let $taskItemDom = $('<div class="task-item">');
 
