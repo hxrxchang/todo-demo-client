@@ -381,3 +381,7 @@ body .container{
   font-size: 16px;
   border-radius: 5px;
 }
+
+.logout-text:hover {
+  color:  rgb(148, 145, 145);
+}
