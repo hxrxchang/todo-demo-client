@@ -10,7 +10,6 @@ $(function() {
     showLoginModal();
   } else {
     initScreen();
-    // $('#not-completed-task-list').fadeIn(500);
   }
 
   function initScreen() {
@@ -432,6 +431,10 @@ $(function() {
         },
       })
       .then((res) => {
+        if (res.message === 'user is already registered') {
+          return showModalAlert('そのユーザー名はすでに登録済みです');
+        }
+
         userId = res.content.id;
         localStorage.setItem('userId', userId);
 

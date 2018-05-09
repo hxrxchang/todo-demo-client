@@ -278,6 +278,10 @@ body .container{
   overflow: hidden;
 }
 
+.task-title:hover {
+  color: rgb(148, 145, 145);
+}
+
 .delete-task-btn {
   position: absolute;
   top: 20px;
