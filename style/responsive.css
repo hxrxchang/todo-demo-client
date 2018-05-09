@@ -1,5 +1,9 @@
 /* スマホ用レイアウト */
 @media (max-width: 375px) {
+  body {
+    font-family: "Hiragino Kaku Gothic ProN";
+  }
+
   body .container{
     margin: 0;
   }
