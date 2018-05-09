@@ -2,7 +2,10 @@ $(function() {
   // ページロード時の挙動
   // ローカルストレージからuserIdを取得
   // userIdがあればログイン済みなのでtaskを取得し、 なければ登録モーダルを表示
+
+  // グローバルに定義してるのに、引数で渡すのはなぜ???
   let userId = localStorage.getItem('userId');
+  // センスなし
   let ASC_or_DESC = 'DESC';
   let requestDeadline = false;
 
@@ -16,15 +19,12 @@ $(function() {
     $('#completed-task-list').empty();
     $('#not-completed-task-list').empty();
     $('#stared-task-list').empty();
-    getTasks({userId, ASC_or_DESC, requestDeadline});
-    getFavTasks({userId, ASC_or_DESC, requestDeadline});
+    getTasks();
+    getFavTasks();
     $('#main-container').fadeIn(500);
   }
 
-  function getTasks(argument) {
-    let userId = argument.userId;
-    let ASC_or_DESC = argument.ASC_or_DESC;
-    let requestDeadline = argument.requestDeadline;
+  function getTasks() {
     let data = {
       userId,
       ASC_or_DESC,
@@ -33,6 +33,7 @@ $(function() {
 
     $.ajax({
       type: 'POST',
+      // urlも変数化できる
       url: 'http://localhost:3000/api/tasks',
       dataType: 'json',
       data
@@ -47,10 +48,7 @@ $(function() {
     });
   }
 
-  function getFavTasks(argument) {
-    let userId = argument.userId;
-    let ASC_or_DESC = argument.ASC_or_DESC;
-    let requestDeadline = argument.requestDeadline;
+  function getFavTasks() {
     let data = {
       userId,
       ASC_or_DESC,
@@ -379,6 +377,7 @@ $(function() {
     let userName;
     let password;
 
+    $('#login').off('click');
     $('#login').on('click', () => {
       userName = $('#user-name').val();
       password = $('#user-password').val();
@@ -453,6 +452,7 @@ $(function() {
   }
 
   // タブの切り替え
+  // jqueryオブジェクトは変数化して、無駄にメモリを使わない
   $('#show-completed-tasks').on('click', () => {
     $('#not-completed-task-list').hide();
     $('#stared-task-list').hide();
@@ -538,11 +538,10 @@ $(function() {
     $('#logout-button').off('click');
     $('#logout-button').on('click', () => {
       localStorage.removeItem('userId');
+      hideLogoutModal();
       $('#completed-task-list').empty();
       $('#not-completed-task-list').empty();
       $('#stared-task-list').empty();
-      hideLogoutModal();
-
       setTimeout(() => {
         showLoginModal();
       }, 1000);
