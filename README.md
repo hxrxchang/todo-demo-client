@@ -1,4 +1,5 @@
 # todo-demo-client
+demo: https://hxrxchang.github.io/todo-demo-client/
 ## install
 ```
 $ git clone git@github.com:hxrxchang/todo-demo-client.git
