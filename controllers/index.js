@@ -12,7 +12,7 @@ $(function() {
   if (!userId) {
     showLoginModal();
   } else {
-    initScreen();
+    // initScreen();
   }
 
   function initScreen() {
