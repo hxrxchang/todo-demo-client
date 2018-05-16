@@ -12,7 +12,7 @@ $(function() {
   if (!userId) {
     showLoginModal();
   } else {
-    // initScreen();
+    initScreen();
   }
 
   function initScreen() {
@@ -20,7 +20,7 @@ $(function() {
     $('#not-completed-task-list').empty();
     $('#stared-task-list').empty();
     getTasks();
-    getFavTasks();
+    // getFavTasks();
     $('#main-container').fadeIn(500);
   }
 
