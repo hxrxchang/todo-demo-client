@@ -397,11 +397,11 @@ $(function() {
       })
       .then((res) => {
         if (res.content.length) {
-          userId = res.content[0].id;
+          userId = res.content[0]._id;
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
-          initScreen();
+          // initScreen();
           showModalAlert('ログインに成功しました');
         } else {
           showModalAlert('ユーザー名、パスワードが違います');
