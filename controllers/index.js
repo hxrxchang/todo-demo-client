@@ -501,26 +501,6 @@ $(function() {
     }
   }
 
-  $('#sort-way-select').on('change', () => {
-    let sortType = $('#sort-way-select').val();
-
-    if (sortType === 'sort-by-deadline') {
-      requestDeadline = true;
-      initScreen();
-      requestDeadline = false;
-    }
-
-    if (sortType === 'sort-by-create-desc') {
-      ASC_or_DESC = 'DESC';
-      initScreen();
-    }
-
-    if (sortType === 'sort-by-create-asc') {
-      ASC_or_DESC = 'ASC';
-      initScreen();
-    }
-  });
-
   $('#logout-group').on('click', () => {
     let $shade = $('<div></div>');
     $shade.attr('id', 'shade');
