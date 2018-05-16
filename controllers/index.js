@@ -430,11 +430,11 @@ $(function() {
         },
       })
       .then((res) => {
-        if (res.message === 'user is already registered') {
+        if (res.status === 500) {
           return showModalAlert('そのユーザー名はすでに登録済みです');
         }
 
-        userId = res.content.id;
+        userId = res.content._id;
         localStorage.setItem('userId', userId);
 
         hideLoginModal();
