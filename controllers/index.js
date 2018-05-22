@@ -408,6 +408,7 @@ $(function() {
         }
       })
       .catch((err) => {
+        console.log(err);
         showModalAlert('通信に失敗しました');
       });
     });
