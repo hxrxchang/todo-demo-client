@@ -19,7 +19,9 @@ $(function() {
     $('#completed-task-list').empty();
     $('#not-completed-task-list').empty();
     $('#stared-task-list').empty();
+    // 通常のタスクを取得
     getTasks();
+    // お気に入りのタスクを取得
     getFavTasks();
     $('#main-container').fadeIn(500);
   }
