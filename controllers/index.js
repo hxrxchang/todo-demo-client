@@ -402,7 +402,7 @@ $(function() {
       })
       .then((res) => {
         if (res.content.length) {
-          userId = res.content[0].id;
+          userId = res.content[0].token;
           localStorage.setItem('userId', userId);
 
           hideLoginModal();
@@ -419,6 +419,7 @@ $(function() {
     });
 
     $('#sign-up').on('click', () => {
+      $("sign-up").prop("disabled", true);
       userName = $('#user-name').val();
       password = $('#user-password').val();
 
@@ -440,14 +441,17 @@ $(function() {
           return showModalAlert('そのユーザー名はすでに登録済みです');
         }
 
-        userId = res.content.id;
+        userId = res.content.token;
         localStorage.setItem('userId', userId);
 
         hideLoginModal();
         showModalAlert('登録に成功しました');
+
+        $("sign-up").prop("disabled", false);
       })
       .catch(() => {
         showModalAlert('通信に失敗しました');
+        $("sign-up").prop("disabled", false);
       });
     });
 
