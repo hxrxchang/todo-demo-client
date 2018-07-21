@@ -9,6 +9,9 @@ $(function() {
   let ASC_or_DESC = 'DESC';
   let requestDeadline = false;
 
+  // const url = 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000';
+  const url = 'http://localhost:3000';
+
   if (!userId) {
     showLoginModal();
   } else {
@@ -34,7 +37,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       // urlも変数化できる
-      url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks',
+      url: `${url}/api/tasks`,
       dataType: 'json',
       data
     })
@@ -57,7 +60,7 @@ $(function() {
 
     $.ajax({
       type: 'POST',
-      url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/star/get',
+      url: `${url}/api/tasks/star/get`,
       dataType: 'json',
       data
     })
@@ -147,7 +150,7 @@ $(function() {
   function changeTaskStatus(taskId, isCompleted) {
     $.ajax({
       type: 'POST',
-      url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/complete',
+      url: `${url}/api/tasks/complete`,
       dataType: 'json',
       data: {
         taskId,
@@ -162,7 +165,7 @@ $(function() {
   function addFavoriteTask(taskId) {
     $.ajax({
       type: 'POST',
-      url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/star',
+      url: `${url}/api/tasks/star`,
       dataType: 'json',
       data: {
         taskId,
@@ -195,7 +198,7 @@ $(function() {
     $('#delete-task-button').on('click', () => {
       $.ajax({
         type: 'POST',
-        url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/delete',
+        url: `${url}/api/tasks/delete`,
         dataType: 'json',
         data: {
           taskId,
@@ -258,7 +261,7 @@ $(function() {
 
       $.ajax({
         type: 'POST',
-        url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/edit',
+        url: `${url}/api/tasks/edit`,
         dataType: 'json',
         data
       })
@@ -329,7 +332,7 @@ $(function() {
 
       $.ajax({
         type: 'POST',
-        url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/tasks/create',
+        url: `${url}/api/tasks/create`,
         dataType: 'json',
         data: {
           todoTitle,
@@ -388,7 +391,7 @@ $(function() {
 
       $.ajax({
         type: 'POST',
-        url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/users/login',
+        url: `${url}/api/users/login`,
         dataType: 'json',
         data: {
           userName,
@@ -423,7 +426,7 @@ $(function() {
 
       $.ajax({
         type: 'POST',
-        url: 'http://ec2-18-216-100-22.us-east-2.compute.amazonaws.com:3000/api/users/sign-up',
+        url: `${url}/api/users/sign-up`,
         dataType: 'json',
         data: {
           userName,
