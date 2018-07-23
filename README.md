@@ -1,5 +1,5 @@
 # todo-demo-client
-demo: https://hxrxchang.github.io/todo-demo-client/
+demo: http://jquery-todo-practice.s3-website-ap-northeast-1.amazonaws.com/
 ## install
 ```
 $ git clone git@github.com:hxrxchang/todo-demo-client.git
